@@ -189,7 +189,72 @@ export const packages: Package[] = [
     locationIds: ["loc3"],
     tourOperatorId: "to3",
     tagIds: ["tag3", "tag12"]
-  }
+  },
+  // Thailand Packages
+{
+  id: "p7",
+  title: "Bangkok City Explorer",
+  destinationId: "d4", // Thailand
+  image: "https://images.pexels.com/photos/2082181/pexels-photo-2082181.jpeg",
+  price: 1199,
+  currency: "USD",
+  duration: 3,
+  rating: 4.6,
+  reviews: 87,
+  amenityIds: ["amen1", "amen2", "amen3"],
+  description: "Dive into the vibrant city life of Bangkok with this exciting urban tour.",
+  itineraryId: "itin6",
+  accommodationId: "acc3",
+  transportIds: ["trans1"],
+  inclusions: [
+    "City sightseeing tour",
+    "Floating market visit",
+    "2 nights hotel stay",
+    "Daily breakfast",
+    "Chao Phraya river cruise"
+  ],
+  exclusions: [
+    "International flights",
+    "Travel insurance",
+    "Personal expenses"
+  ],
+  featured: true,
+  locationIds: ["loc4"],
+  tourOperatorId: "to3",
+  tagIds: ["tag3", "tag7"]
+},
+{
+  id: "p8",
+  title: "Phuket Island Retreat",
+  destinationId: "d4",
+  image: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg",
+  price: 1399,
+  currency: "USD",
+  duration: 3,
+  rating: 4.8,
+  reviews: 134,
+  amenityIds: ["amen1", "amen4", "amen5"],
+  description: "Unwind on the white-sand beaches of Phuket with this relaxing island retreat.",
+  itineraryId: "itin6",
+  accommodationId: "acc3",
+  transportIds: ["trans1", "trans3"],
+  inclusions: [
+    "Beach resort accommodation",
+    "Island-hopping tour",
+    "Welcome drink",
+    "Daily breakfast and one dinner",
+    "Airport transfers"
+  ],
+  exclusions: [
+    "Travel insurance",
+    "Additional meals",
+    "Optional excursions"
+  ],
+  locationIds: ["loc5"],
+  tourOperatorId: "to3",
+  tagIds: ["tag1", "tag11"]
+}
+
 ];
 
 export const getPackageById = (id: string): Package | undefined => {

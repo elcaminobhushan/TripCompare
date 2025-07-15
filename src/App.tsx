@@ -17,6 +17,8 @@ import PartnersPage from './pages/PartnersPage';
 import FavoritesPage from './pages/FavoritesPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ComparePage from './pages/ComparePage';
+import AIComparisonPage from './pages/AIComparisonPage';
+import CompanyComparisonPage from './pages/CompanyComparisonPage';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/compare" element={<ComparePage />} />
+          <Route path="/ai-comparison" element={<AIComparisonPage />} />
+          <Route path="/company-comparison" element={<CompanyComparisonPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

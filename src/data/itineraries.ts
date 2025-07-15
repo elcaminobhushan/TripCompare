@@ -25,6 +25,42 @@ export const itineraries: ItineraryDay[] = [
     transport: ["trans1", "trans3"],
     notes: "Airport meet & greet service included"
   },
+    {
+    id: "itin1_d1",
+    packageId: "p1",
+    day: 4,
+    title: "Arrival in Paradise",
+    description: "Begin your tropical getaway with a warm welcome and beachfront relaxation.",
+    activities: ["act1"],
+    meals: ["meal1"],
+    accommodation: "acc1",
+    transport: ["trans1", "trans3"],
+    notes: "Airport meet & greet service included"
+  },
+    {
+    id: "itin1_d1",
+    packageId: "p1",
+    day: 5,
+    title: "Arrival in Paradise",
+    description: "Begin your tropical getaway with a warm welcome and beachfront relaxation.",
+    activities: ["act1"],
+    meals: ["meal1"],
+    accommodation: "acc1",
+    transport: ["trans1", "trans3"],
+    notes: "Airport meet & greet service included"
+  },
+    {
+    id: "itin1_d1",
+    packageId: "p1",
+    day: 6,
+    title: "Arrival in Paradise",
+    description: "Begin your tropical getaway with a warm welcome and beachfront relaxation.",
+    activities: ["act1"],
+    meals: ["meal1"],
+    accommodation: "acc1",
+    transport: ["trans1", "trans3"],
+    notes: "Airport meet & greet service included"
+  },
   {
     id: "itin1_d2",
     packageId: "p1",
