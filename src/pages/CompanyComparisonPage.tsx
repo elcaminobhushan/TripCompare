@@ -23,6 +23,12 @@ import { Bar, Radar, Doughnut } from 'react-chartjs-2';
 import { useCompareStore } from '../store/useStore';
 import { getPackageById } from '../data/packages';
 import { tourOperators } from '../data/tour-operators';
+import { getPackageItinerary } from '../data/itineraries';
+import { getAccommodationById } from '../data/accommodations';
+import { getActivityById } from '../data/activities';
+import { getMealById } from '../data/meals';
+import { getPackageReviews } from '../data/reviews';
+import { formatPrice } from '../utils/formatters';
 
 ChartJS.register(
   CategoryScale,
@@ -104,32 +110,60 @@ const CompanyComparisonPage: React.FC = () => {
   }
 
   // Create company data from selected packages
-const companyData = uniqueCompanies
-  .map(({ operator, packages }) => {
+  const companyData = uniqueCompanies.map(({ operator, packages }) => {
     if (!operator) return null;
-
+    
+    // Get all itineraries for this company's packages
+    const allItineraries = packages.map(pkg => pkg ? getPackageItinerary(pkg.id) : []).flat();
+    
+    // Get all accommodations
+    const accommodations = packages.map(pkg => pkg ? getAccommodationById(pkg.accommodationId) : null).filter(Boolean);
+    const avgHotelRating = accommodations.length > 0 
+      ? accommodations.reduce((sum, acc) => sum + (acc?.rating || 0), 0) / accommodations.length 
+      : 0;
+    
+    // Get all unique activities
+    const allActivities = allItineraries.reduce((acc, day) => {
+      const dayActivities = day.activities.map(id => getActivityById(id)).filter(Boolean);
+      return [...acc, ...dayActivities];
+    }, [] as any[]);
+    const uniqueActivities = allActivities.filter((activity, index, self) => 
+      index === self.findIndex(a => a.id === activity.id)
+    );
+    
+    // Get all unique meals
+    const allMeals = allItineraries.reduce((acc, day) => {
+      const dayMeals = day.meals.map(id => getMealById(id)).filter(Boolean);
+      return [...acc, ...dayMeals];
+    }, [] as any[]);
+    const uniqueMeals = allMeals.filter((meal, index, self) => 
+      index === self.findIndex(m => m.id === meal.id)
+    );
+    
+    // Get reviews for all packages
+    const allReviews = packages.map(pkg => pkg ? getPackageReviews(pkg.id) : []).flat();
+    const avgReviewRating = allReviews.length > 0 
+      ? allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length 
+      : 0;
+    
+    // Calculate average price
     const avgPrice = packages.reduce((sum, pkg) => sum + (pkg?.price || 0), 0) / packages.length;
-    const avgRating = packages.reduce((sum, pkg) => sum + (pkg?.rating || 0), 0) / packages.length;
-
+    
     return {
       id: operator.id,
       name: operator.name,
-      hotels: avgRating,
-      activities: Math.floor(Math.random() * 3) + 7,
-      transport: ['flight', 'bus'],
-      mealsIncluded: {
-        breakfast: Math.random() > 0.5,
-        lunch: Math.random() > 0.5,
-        dinner: Math.random() > 0.5
-      },
-      reviews: avgRating,
+      hotels: avgHotelRating,
+      activities: uniqueActivities,
+      transport: ['flight', 'bus'], // Simulated data
+      mealsIncluded: uniqueMeals,
+      reviews: avgReviewRating,
       price: Math.round(avgPrice),
       packages: packages.length,
       specializations: operator.specializations,
-      selectedPackages: packages
+      selectedPackages: packages,
+      reviewCount: allReviews.length
     };
-  })
-  .filter((item): item is NonNullable<typeof item> => item !== null);
+  }).filter((item): item is NonNullable<typeof item> => item !== null);
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
@@ -154,21 +188,7 @@ const companyData = uniqueCompanies
     }
   };
 
-  const getMealIndicator = (included: boolean, type: string) => {
-    const colors = {
-      breakfast: included ? 'bg-green-500' : 'bg-purple-300',
-      lunch: included ? 'bg-green-500' : 'bg-gray-300',
-      dinner: included ? 'bg-green-500' : 'bg-purple-300'
-    };
-    
-    return (
-      <div className={`w-8 h-8 rounded flex items-center justify-center ${colors[type as keyof typeof colors]}`}>
-        <span className="text-white font-medium text-sm">
-          {type.charAt(0).toUpperCase()}
-        </span>
-      </div>
-    );
-  };
+
 
   // Chart data
   const barChartData = {
@@ -183,7 +203,7 @@ const companyData = uniqueCompanies
       },
       {
         label: 'Activities Score',
-        data: companyData.map(company => company.activities),
+        data: companyData.map(company => company.activities.length),
         backgroundColor: 'rgba(16, 185, 129, 0.8)',
         borderColor: 'rgb(16, 185, 129)',
         borderWidth: 1,
@@ -357,7 +377,13 @@ const companyData = uniqueCompanies
                   </td>
                   {companyData.map((company) => (
                     <td key={company.id} className="px-6 py-4 text-center">
-                      <span className="text-lg font-semibold">{company.activities}/10</span>
+                      <div className="space-y-1">
+                        {company.activities.map((activity: any, index: number) => (
+                          <div key={index} className="text-sm">
+                            • {activity.name}
+                          </div>
+                        ))}
+                      </div>
                     </td>
                   ))}
                 </tr>
@@ -389,10 +415,15 @@ const companyData = uniqueCompanies
                   </td>
                   {companyData.map((company) => (
                     <td key={company.id} className="px-6 py-4">
-                      <div className="flex items-center justify-center gap-2">
-                        {getMealIndicator(company.mealsIncluded.breakfast, 'breakfast')}
-                        {getMealIndicator(company.mealsIncluded.lunch, 'lunch')}
-                        {getMealIndicator(company.mealsIncluded.dinner, 'dinner')}
+                      <div className="space-y-1">
+                        {company.mealsIncluded && (
+                          <div className="text-sm capitalize">
+                            • Breakfast ({1})
+                          </div>
+                        )}
+                        {company.mealsIncluded && (
+                          <span className="text-gray-500 text-sm">No meals included</span>
+                        )}
                       </div>
                     </td>
                   ))}
@@ -408,6 +439,7 @@ const companyData = uniqueCompanies
                     <td key={company.id} className="px-6 py-4 text-center">
                       <div className="flex items-center justify-center gap-1">
                         {renderStars(company.reviews)}
+                        <span className="ml-2 text-gray-600">({company.reviewCount})</span>
                       </div>
                     </td>
                   ))}
@@ -422,7 +454,7 @@ const companyData = uniqueCompanies
                   {companyData.map((company) => (
                     <td key={company.id} className="px-6 py-4 text-center">
                       <span className="text-lg font-bold text-green-600">
-                        ₹{company.price.toLocaleString()}
+                        {formatPrice(company.price)}
                       </span>
                     </td>
                   ))}
@@ -484,21 +516,27 @@ const companyData = uniqueCompanies
                   <div className="bg-blue-50 border-l-4 border-blue-500 p-4">
                     <h4 className="font-medium text-blue-900">Best Overall Value</h4>
                     <p className="text-blue-700 text-sm mt-1">
-                      Budget Travels offers the most activities (9/10) at the lowest price (₹19,999)
+                      {companyData.reduce((best, company) => 
+                        company.price < best.price ? company : best
+                      ).name} offers competitive pricing with good activity selection
                     </p>
                   </div>
                   
                   <div className="bg-green-50 border-l-4 border-green-500 p-4">
                     <h4 className="font-medium text-green-900">Premium Experience</h4>
                     <p className="text-green-700 text-sm mt-1">
-                      Cultural Voyages provides the highest hotel rating (4.5/5) with all meals included
+                      {companyData.reduce((best, company) => 
+                        company.hotels > best.hotels ? company : best
+                      ).name} provides the highest hotel rating with quality accommodations
                     </p>
                   </div>
                   
                   <div className="bg-amber-50 border-l-4 border-amber-500 p-4">
                     <h4 className="font-medium text-amber-900">Balanced Option</h4>
                     <p className="text-amber-700 text-sm mt-1">
-                      Paradise Voyages offers good balance across all categories with strong reviews
+                      {companyData.reduce((best, company) => 
+                        company.reviews > best.reviews ? company : best
+                      ).name} offers good balance across all categories with strong reviews
                     </p>
                   </div>
                 </div>

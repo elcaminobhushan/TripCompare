@@ -31,8 +31,8 @@ export const packages: Package[] = [
     ],
     featured: true,
     tourOperatorId: "to1",
-    tags: ["Beach", "All-Inclusive", "Luxury"],
     departureLocations: ["Mumbai", "Delhi"],
+    tags: ["Beach", "All-Inclusive", "Luxury"]
   },
   {
     id: "p2",
@@ -49,6 +49,7 @@ export const packages: Package[] = [
     itineraryId: "itin2",
     accommodationId: "acc1",
     transportIds: ["trans1", "trans3"],
+    departureLocations: ["Mumbai", "Delhi"],
     inclusions: [
       "Round-trip flights",
       "Traditional cooking class",
@@ -61,8 +62,7 @@ export const packages: Package[] = [
       "Optional activities"
     ],
     tourOperatorId: "to1",
-    tags: ["Cultural", "All-Inclusive"],
-    departureLocations: ["Mumbai", "Delhi"],
+    tags: ["Cultural", "All-Inclusive"]
   },
 
   // Swiss Alps Packages
@@ -81,6 +81,7 @@ export const packages: Package[] = [
     itineraryId: "itin3",
     accommodationId: "acc2",
     transportIds: ["trans2"],
+    departureLocations: ["Mumbai", "Delhi"],
     inclusions: [
       "Swiss Rail Pass",
       "Ski equipment",
@@ -94,8 +95,7 @@ export const packages: Package[] = [
     ],
     featured: true,
     tourOperatorId: "to2",
-    tags: ["Adventure", "Family-Friendly"],
-    departureLocations: ["Mumbai", "Delhi"],
+    tags: ["Adventure", "Family-Friendly"]
   },
   {
     id: "p4",
@@ -125,7 +125,8 @@ export const packages: Package[] = [
     ],
     tourOperatorId: "to2",
     tags: ["Luxury", "All-Inclusive"],
-    departureLocations: ["Mumbai", "Delhi"],
+    departureLocations: ["Mumbai", "Delhi"]
+    
   },
 
   // Kyoto Packages
