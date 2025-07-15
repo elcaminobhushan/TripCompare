@@ -415,7 +415,7 @@ const CompanyComparisonPage: React.FC = () => {
                   </td>
                   {companyData.map((company) => (
                     <td key={company.id} className="px-6 py-4">
-                      <div className="space-y-1">
+                      <div className="flex items-center justify-center gap-2">
                         {company.mealsIncluded && (
                           <div className="text-sm capitalize">
                             • Breakfast ({1})
