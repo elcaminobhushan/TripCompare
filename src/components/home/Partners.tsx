@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building, Award, Shield } from 'lucide-react';
 
 const partners = [
   {

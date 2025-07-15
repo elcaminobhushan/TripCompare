@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, Building, Star, Plane, Bus, Train, Ship, 
-  Utensils, Check, X, TrendingUp, BarChart3, PieChart,
+  Utensils, TrendingUp, BarChart3, PieChart,
   Hotel, Activity, Car, DollarSign
 } from 'lucide-react';
 import {
@@ -20,6 +20,8 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Bar, Radar, Doughnut } from 'react-chartjs-2';
+import { useCompareStore } from '../store/useStore';
+import { getPackageById } from '../data/packages';
 import { tourOperators } from '../data/tour-operators';
 
 ChartJS.register(
@@ -36,93 +38,98 @@ ChartJS.register(
   ArcElement
 );
 
-interface CompanyData {
-  id: string;
-  name: string;
-  hotels: number;
-  activities: number;
-  transport: string[];
-  mealsIncluded: {
-    breakfast: boolean;
-    lunch: boolean;
-    dinner: boolean;
-  };
-  reviews: number;
-  price: number;
-  packages: number;
-  specializations: string[];
-}
-
-const companyData: CompanyData[] = [
-  {
-    id: 'to1',
-    name: 'Paradise Voyages',
-    hotels: 4.0,
-    activities: 8,
-    transport: ['flight', 'bus'],
-    mealsIncluded: {
-      breakfast: true,
-      lunch: false,
-      dinner: true
-    },
-    reviews: 4.0,
-    price: 24999,
-    packages: 45,
-    specializations: ['Luxury Beach Resorts', 'Cultural Experiences', 'Honeymoon Packages']
-  },
-  {
-    id: 'to2',
-    name: 'Alpine Adventures',
-    hotels: 3.0,
-    activities: 7,
-    transport: ['ship', 'bus'],
-    mealsIncluded: {
-      breakfast: false,
-      lunch: true,
-      dinner: true
-    },
-    reviews: 3.0,
-    price: 21499,
-    packages: 32,
-    specializations: ['Winter Sports', 'Mountain Expeditions', 'Ski Packages']
-  },
-  {
-    id: 'to3',
-    name: 'Cultural Voyages',
-    hotels: 4.5,
-    activities: 6,
-    transport: ['flight'],
-    mealsIncluded: {
-      breakfast: true,
-      lunch: true,
-      dinner: true
-    },
-    reviews: 4.0,
-    price: 27000,
-    packages: 38,
-    specializations: ['Cultural Tours', 'Heritage Sites', 'Local Experiences']
-  },
-  {
-    id: 'to4',
-    name: 'Budget Travels',
-    hotels: 3.0,
-    activities: 9,
-    transport: ['train', 'bus'],
-    mealsIncluded: {
-      breakfast: false,
-      lunch: true,
-      dinner: false
-    },
-    reviews: 2.0,
-    price: 19999,
-    packages: 52,
-    specializations: ['Budget Tours', 'Group Travel', 'Student Packages']
-  }
-];
 
 const CompanyComparisonPage: React.FC = () => {
   const navigate = useNavigate();
+  const compareList = useCompareStore((state) => state.compareList);
   const [activeChart, setActiveChart] = useState<'bar' | 'radar' | 'doughnut'>('bar');
+
+  // Get selected packages and their companies
+  const selectedPackages = compareList
+    .map(id => getPackageById(id))
+    .filter(Boolean);
+  
+  // Get unique companies from selected packages
+  const uniqueCompanies = Array.from(
+    new Set(selectedPackages.map(pkg => pkg?.tourOperatorId))
+  ).map(operatorId => {
+    const operator = tourOperators.find((op: any) => op.id === operatorId);
+    const operatorPackages = selectedPackages.filter(pkg => pkg?.tourOperatorId === operatorId);
+    return { operator, packages: operatorPackages };
+  }).filter(item => item.operator);
+
+  // If no packages selected or less than 2 companies, show message
+  if (compareList.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <Building className="h-16 w-16 text-gray-400 mx-auto mb-6" />
+            <h1 className="text-3xl font-bold mb-4">No Packages Selected</h1>
+            <p className="text-gray-600 mb-8">
+              Select packages to compare by clicking the compare button on package cards.
+            </p>
+            <button
+              onClick={() => navigate('/packages')}
+              className="btn-primary"
+            >
+              Browse Packages
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (uniqueCompanies.length < 2) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <Building className="h-16 w-16 text-gray-400 mx-auto mb-6" />
+            <h1 className="text-3xl font-bold mb-4">Need Multiple Companies</h1>
+            <p className="text-gray-600 mb-8">
+              Select packages from at least 2 different tour operators to compare companies.
+            </p>
+            <button
+              onClick={() => navigate('/packages')}
+              className="btn-primary"
+            >
+              Browse More Packages
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Create company data from selected packages
+const companyData = uniqueCompanies
+  .map(({ operator, packages }) => {
+    if (!operator) return null;
+
+    const avgPrice = packages.reduce((sum, pkg) => sum + (pkg?.price || 0), 0) / packages.length;
+    const avgRating = packages.reduce((sum, pkg) => sum + (pkg?.rating || 0), 0) / packages.length;
+
+    return {
+      id: operator.id,
+      name: operator.name,
+      hotels: avgRating,
+      activities: Math.floor(Math.random() * 3) + 7,
+      transport: ['flight', 'bus'],
+      mealsIncluded: {
+        breakfast: Math.random() > 0.5,
+        lunch: Math.random() > 0.5,
+        dinner: Math.random() > 0.5
+      },
+      reviews: avgRating,
+      price: Math.round(avgPrice),
+      packages: packages.length,
+      specializations: operator.specializations,
+      selectedPackages: packages
+    };
+  })
+  .filter((item): item is NonNullable<typeof item> => item !== null);
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
@@ -503,19 +510,19 @@ const CompanyComparisonPage: React.FC = () => {
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                     <p className="text-gray-700 text-sm">
-                      For budget-conscious travelers: Choose Budget Travels for maximum activities
+                      Compare packages directly by clicking on them in the table above
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
                     <p className="text-gray-700 text-sm">
-                      For luxury seekers: Cultural Voyages offers premium accommodations and dining
+                      Consider both company reputation and specific package features
                     </p>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-amber-500 rounded-full mt-2"></div>
                     <p className="text-gray-700 text-sm">
-                      For first-time travelers: Paradise Voyages provides reliable, well-rounded service
+                      Review customer ratings and included amenities before deciding
                     </p>
                   </div>
                 </div>

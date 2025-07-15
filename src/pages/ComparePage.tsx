@@ -10,9 +10,9 @@ import { getActivityById } from '../data/activities';
 import { getMealById } from '../data/meals';
 import { useCompareStore } from '../store/useStore';
 import { 
-  Scale, X, ArrowLeft, AlertTriangle, Star, Building, 
+  Scale, X, ArrowLeft, AlertTriangle, Star,
   BedDouble, Plane, Utensils, Activity, DollarSign, Calendar,
-  Check, Train, Bus, PieChart, BarChart, LineChart
+  Check
 } from 'lucide-react';
 import {
   Chart as ChartJS,
@@ -27,7 +27,7 @@ import {
   BarElement,
   ArcElement
 } from 'chart.js';
-import { Radar, Bar, Pie, Line } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 ChartJS.register(
   RadialLinearScale,
@@ -43,7 +43,6 @@ ChartJS.register(
 );
 
 type TabType = 'overview' | 'accommodations' | 'activities' | 'transport' | 'meals' | 'analysis';
-type AnalysisTabType = 'overview';
 
 const ComparePage: React.FC = () => {
   const navigate = useNavigate();
@@ -53,7 +52,6 @@ const ComparePage: React.FC = () => {
   
   const [packages, setPackages] = useState<Package[]>([]);
   const [activeTab, setActiveTab] = useState<TabType>('overview');
-  const [activeAnalysisTab, setActiveAnalysisTab] = useState<AnalysisTabType>('overview');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -73,9 +71,9 @@ const ComparePage: React.FC = () => {
       
       const valueScore = 100 - ((pkg.price / Math.max(...packages.map(p => p.price))) * 100);
       const accommodationScore = accommodation ? (accommodation.rating / 5) * 100 : 0;
-      const activitiesScore = itinerary ? (itinerary.reduce((acc, day) => acc + (day.activityIds?.length || 0), 0) / 20) * 100 : 0;
+      const activitiesScore = itinerary ? (itinerary.reduce((acc, day) => acc + (day.activities?.length || 0), 0) / 20) * 100 : 0;
       const transportScore = pkg.transportIds?.length ? 100 : 50;
-      const mealsScore = itinerary ? (itinerary.reduce((acc, day) => acc + (day.mealIds?.length || 0), 0) / 15) * 100 : 0;
+      const mealsScore = itinerary ? (itinerary.reduce((acc, day) => acc + (day.meals?.length || 0), 0) / 15) * 100 : 0;
 
       const colors = [
         'rgba(54, 162, 235, 0.2)',
@@ -383,9 +381,9 @@ const ComparePage: React.FC = () => {
                           {itinerary.map((day, index) => (
                             <div key={index} className="border-b pb-3 last:border-0 last:pb-0">
                               <h5 className="font-medium mb-2">Day {day.day}</h5>
-                              {day.activityIds && day.activityIds.length > 0 ? (
+                              {day.activities && day.activities.length > 0 ? (
                                 <ul className="space-y-2">
-                                  {day.activityIds.map((activityId, i) => {
+                                  {day.activities.map((activityId: string, i: number) => {
                                     const activity = getActivityById(activityId);
                                     return activity ? (
                                       <li key={i} className="flex items-center gap-2 text-sm">
@@ -415,7 +413,7 @@ const ComparePage: React.FC = () => {
                               </div>
                               <div>
                                 <h5 className="font-medium">{transport.type}</h5>
-                                <p className="text-sm text-gray-600">{transport.details}</p>
+                                <p className="text-sm text-gray-600">{transport.description}</p>
                               </div>
                             </div>
                           )}
@@ -440,9 +438,9 @@ const ComparePage: React.FC = () => {
                           {itinerary.map((day, index) => (
                             <div key={index} className="border-b pb-3 last:border-0 last:pb-0">
                               <h5 className="font-medium mb-2">Day {day.day}</h5>
-                              {day.mealIds && day.mealIds.length > 0 ? (
+                              {day.meals && day.meals.length > 0 ? (
                                 <div className="flex flex-wrap gap-2">
-                                  {day.mealIds.map((mealId, i) => {
+                                  {day.meals.map((mealId: string, i: number) => {
                                     const meal = getMealById(mealId);
                                     return meal ? (
                                       <span
@@ -493,9 +491,9 @@ const ComparePage: React.FC = () => {
                           <ul className="space-y-2">
                             <li className="text-sm text-gray-600">
                               <span className="font-medium text-gray-900">{pkg.title}</span>: 
-                              {pkg.transportIds?.length ? " Includes all transportation, " : " Limited transportation, "}
-                              {itinerary?.reduce((acc, day) => acc + (day.activityIds?.length || 0), 0)} activities, and
-                              {itinerary?.reduce((acc, day) => acc + (day.mealIds?.length || 0), 0)} meals included.
+                              {pkg.transportIds?.length ? " Includes transportation, " : " Limited transportation, "}
+                              {itinerary?.reduce((acc, day) => acc + (day.activities?.length || 0), 0)} activities, and
+                              {itinerary?.reduce((acc, day) => acc + (day.meals?.length || 0), 0)} meals included.
                             </li>
                           </ul>
                         </div>

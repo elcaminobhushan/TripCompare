@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Package } from '../../../types';
-import { ChevronDown, ChevronUp, Activity, BedDouble, Plane, Utensils } from 'lucide-react';
+import { ChevronDown, Activity, BedDouble, Plane, Utensils } from 'lucide-react';
 import { getPackageItinerary } from '../../../data/itineraries';
 import { getActivityById } from '../../../data/activities';
 import { getMealById } from '../../../data/meals';
@@ -70,12 +70,12 @@ const Overview: React.FC<OverviewProps> = ({ packageData }) => {
                     <h4 className="font-medium text-gray-900 mb-4">Activities</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {activities.map((activity) => (
-                        <div key={activity.id} className="bg-gray-50 rounded-lg p-4">
+                        <div key={activity?.id} className="bg-gray-50 rounded-lg p-4">
                           <div className="flex items-start gap-3">
                             <Activity className="h-5 w-5 text-primary-600 mt-1" />
                             <div>
-                              <p className="font-medium text-gray-900">{activity.name}</p>
-                              <p className="text-sm text-gray-500">{activity.description}</p>
+                              <p className="font-medium text-gray-900">{activity?.name}</p>
+                              <p className="text-sm text-gray-500">{activity?.description}</p>
                             </div>
                           </div>
                         </div>
@@ -116,9 +116,9 @@ const Overview: React.FC<OverviewProps> = ({ packageData }) => {
                     </h4>
                     <div className="bg-gray-50 rounded-lg p-4">
                       {transports.map((transport) => (
-                        <div key={transport.id}>
-                          <h5 className="font-medium">{transport.name}</h5>
-                          <p className="text-gray-600">{transport.description}</p>
+                        <div key={transport?.id}>
+                          <h5 className="font-medium">{transport?.name}</h5>
+                          <p className="text-gray-600">{transport?.description}</p>
                         </div>
                       ))}
                     </div>
@@ -135,10 +135,10 @@ const Overview: React.FC<OverviewProps> = ({ packageData }) => {
                     <div className="flex gap-3">
                       {meals.map((meal) => (
                         <span 
-                          key={meal.id}
+                          key={meal?.id}
                           className="px-3 py-1 bg-primary-50 text-primary-600 rounded-full text-sm font-medium capitalize"
                         >
-                          {meal.type}
+                          {meal?.type}
                         </span>
                       ))}
                     </div>

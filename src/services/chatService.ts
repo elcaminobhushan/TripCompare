@@ -10,14 +10,12 @@ export const processUserInput = (input: string): ChatResponseData => {
   // Get stored response if available
   const storedResponse = localStorage.getItem('initialAIResponse');
   let packages = [];
-  let packageIds = [];
 
   if (storedResponse) {
     try {
       const parsedResponse = JSON.parse(storedResponse);
       if (parsedResponse.packages) {
         packages = parsedResponse.packages;
-        packageIds = packages.map((p: any) => p.id);
       }
       // Clear stored response after using it
       localStorage.removeItem('initialAIResponse');
@@ -36,7 +34,7 @@ export const processUserInput = (input: string): ChatResponseData => {
     packageId: firstPackage.id,
     itinerary: getPackageItinerary(firstPackage.id),
     accommodation: firstPackage.accommodationId ? getAccommodationById(firstPackage.accommodationId) : null,
-    transport: firstPackage.transportIds?.map(id => getTransportById(id)).filter(Boolean) || [],
+    transport: firstPackage.transportIds?.map((id: string) => getTransportById(id)).filter(Boolean) || [],
     activities: getPackageItinerary(firstPackage.id)?.reduce((acc: any[], day) => {
       const dayActivities = day.activities.map(id => getActivityById(id)).filter(Boolean);
       return [...acc, ...dayActivities];
@@ -48,7 +46,7 @@ export const processUserInput = (input: string): ChatResponseData => {
 
   // Generate comparison response for multiple packages
   if (packageData.length > 1 && (normalizedInput.includes('compare') || normalizedInput.includes('difference'))) {
-    const comparisonRows = packageData.map(pkg => [
+    const comparisonRows = packageData.map((pkg: any) => [
       pkg.title,
       formatPrice(pkg.price),
       `${pkg.duration} days`,
@@ -58,19 +56,19 @@ export const processUserInput = (input: string): ChatResponseData => {
 
     return {
       type: 'composite',
-      content: `Here's a comparison of ${packageData.map(p => p.title).join(' and ')}:`,
+      content: `Here's a comparison of ${packageData.map((p: any) => p.title).join(' and ')}:`,
       data: {
         text: `I'll help you compare these packages based on price, duration, and features.`,
         table: {
           headers: ['Package', 'Price', 'Duration', 'Rating', 'Features'],
           rows: comparisonRows
         },
-        images: packageData.map(pkg => ({
+        images: packageData.map((pkg: any) => ({
           url: pkg.image,
           caption: pkg.title
         }))
       },
-      package: packageResponse
+      package: packageResponse || undefined
     };
   }
 
@@ -93,6 +91,6 @@ export const processUserInput = (input: string): ChatResponseData => {
         ]
       }
     },
-    package: packageResponse
+    package: packageResponse || undefined
   };
 };

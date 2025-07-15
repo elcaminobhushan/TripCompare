@@ -1,18 +1,18 @@
 import React from 'react';
 import { ChatResponseData } from '../../types/chat';
-import { DivideIcon as LucideIcon, Bean as Beach, Space as Spa, Utensils } from 'lucide-react';
+import { Bean, Space as Spa, Utensils } from 'lucide-react';
 
 interface ResponseRendererProps {
   response: ChatResponseData;
 }
 
 const ResponseRenderer: React.FC<ResponseRendererProps> = ({ response }) => {
-  const getIcon = (name: string): LucideIcon => {
+  const getIcon = (name: string) => {
     switch (name) {
-      case 'beach': return Beach;
+      case 'beach': return Bean;
       case 'spa': return Spa;
       case 'restaurant': return Utensils;
-      default: return Beach;
+      default: return Bean;
     }
   };
 

@@ -1,7 +1,7 @@
 export interface Location {
   id: string;
   name: string;
-  type: 'city' | 'region' | 'resort-area' | 'landmark';
+  type: 'city' | 'region' | 'resort-area' | 'landmark' | 'island';
   country: string;
   coordinates: {
     latitude: number;

@@ -31,7 +31,7 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
   return (
     <div className="space-y-6">
       {itinerary.map((day) => {
-        const transportsForDay = day.transportIds?.map(id => getTransportById(id)).filter(Boolean) || [];
+        const transportsForDay = day.transport?.map((id: string) => getTransportById(id)).filter(Boolean) || [];
         
         return (
           <div 
@@ -62,7 +62,7 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
             
             {expandedDays.includes(day.day) && (
               <div className="p-4 bg-gray-50 border-t border-gray-200">
-                {transportsForDay.map((transport, index) => (
+                {transportsForDay.map((transport: any, index: number) => (
                   <div key={transport.id} className={`bg-white rounded-lg p-6 ${index > 0 ? 'mt-4' : ''}`}>
                     <div className="flex items-center gap-4 mb-6">
                       <div className="h-12 w-12 bg-primary-50 rounded-full flex items-center justify-center">
@@ -81,7 +81,7 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
                         <div className="space-y-2">
                           <h5 className="font-medium text-sm">Features:</h5>
                           <div className="grid grid-cols-2 gap-2">
-                            {transport.features.map((feature, i) => (
+                            {transport.features.map((feature: string, i: number) => (
                               <div key={i} className="flex items-center gap-2">
                                 <CheckCircle className="h-4 w-4 text-green-600" />
                                 <span className="text-sm">{feature}</span>

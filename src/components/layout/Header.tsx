@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, PlaneLanding, Search, Package } from 'lucide-react';
+import { Menu, X, Heart, PlaneLanding } from 'lucide-react';
 import { useFavoritesStore } from '../../store/useStore';
 
 const Header: React.FC = () => {
@@ -86,14 +86,6 @@ const Header: React.FC = () => {
               }`}
             >
               Contact Us
-            </Link>
-            <Link 
-              to="/company-comparison" 
-              className={`font-medium hover:text-primary-600 transition-colors ${
-                location.pathname === '/company-comparison' ? 'text-primary-600' : 'text-gray-700'
-              }`}
-            >
-              Compare Companies
             </Link>
           </nav>
 
@@ -194,16 +186,6 @@ const Header: React.FC = () => {
               }`}
             >
               Contact Us
-            </Link>
-            <Link 
-              to="/company-comparison" 
-              className={`flex items-center gap-2 font-medium p-2 rounded-lg ${
-                location.pathname === '/company-comparison' 
-                  ? 'text-primary-600 bg-primary-50' 
-                  : 'text-gray-700 hover:bg-gray-50'
-              }`}
-            >
-              Compare Companies
             </Link>
             <Link 
               to="/favorites" 

@@ -1,15 +1,13 @@
 import React from 'react';
 import { Package } from '../../types';
-import { X, Star, Check, Minus } from 'lucide-react';
+import { X, Star, Check } from 'lucide-react';
 import { useCompare } from '../../hooks/useCompare';
 import { formatPrice, calculateFinalPrice } from '../../utils/formatters';
 import { destinations } from '../../data/destinations';
 import { getPackageItinerary } from '../../data/itineraries';
-import { getActivityById } from '../../data/activities';
 import { getMealById } from '../../data/meals';
 import { getAccommodationById } from '../../data/accommodations';
 import { getTransportById } from '../../data/transport';
-import { getAmenityById } from '../../data/amenities';
 
 interface CompareTableProps {
   packages: Package[];
@@ -188,7 +186,7 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
               const transports = pkg.transportIds.map(id => getTransportById(id)).filter(Boolean);
               return (
                 <td key={pkg.id} className="px-6 py-4">
-                  {transports.map((transport, index) => (
+                  {transports.map((transport, index) => transport && (
                     <div key={index} className="flex items-center">
                       <Check className="h-5 w-5 text-green-600 mr-2" />
                       <div>
@@ -208,14 +206,11 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
             {packages.map((pkg) => (
               <td key={pkg.id} className="px-6 py-4">
                 <div className="flex flex-wrap gap-1">
-                  {pkg.amenities.map((amenityId, index) => {
-                    const amenity = getAmenityById(amenityId);
-                    return (
-                      <span key={index} className="badge bg-gray-100 text-gray-700">
-                        {amenity?.name || amenityId}
-                      </span>
-                    );
-                  })}
+                  {pkg.amenities.map((amenity, index) => (
+                    <span key={index} className="badge bg-gray-100 text-gray-700">
+                      {amenity}
+                    </span>
+                  ))}
                 </div>
               </td>
             ))}

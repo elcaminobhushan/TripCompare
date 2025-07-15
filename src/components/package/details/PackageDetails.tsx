@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { Activity, Calendar, Download, FileText, Heart, Home, Info, MapPin, Phone, Plane, Shield, Star, Utensils } from 'lucide-react';
-import { formatPrice, calculateFinalPrice } from '../../utils/formatters';
-import FloatingContactForm from '../contact/FloatingContactForm';
-import Overview from './details/Overview';
-import Stays from './details/Stays';
-import Activities from './details/Activities';
-import Transport from './details/Transport';
-import Reviews from './details/Reviews';
-import Policies from './details/Policies';
-import { Package } from '../../types';
-import { useFavoritesStore } from '../../store/useStore';
-import { generateItineraryPDF } from '../../utils/pdfGenerator';
-import { getPackageItinerary } from '../../data/itineraries';
-import { destinations } from '../../data/destinations';
-import { getPackageReviews } from '../../data/reviews';
-import { tourOperators } from '../../data/tour-operators';
+import { formatPrice, calculateFinalPrice } from '../../../utils/formatters';
+import FloatingContactForm from '../../contact/FloatingContactForm';
+import Overview from './Overview';
+import Stays from './Stays';
+import Activities from './Activities';
+import Transport from './Transport';
+import Reviews from './Reviews';
+import Policies from './Policies';
+import { Package } from '../../../types';
+import { useFavoritesStore } from '../../../store/useStore';
+import { generateItineraryPDF } from '../../../utils/pdfGenerator';
+import { destinations } from '../../../data/destinations';
+import { getPackageReviews } from '../../../data/reviews';
+import { tourOperators } from '../../../data/tour-operators';
 
 interface PackageDetailsProps {
   packageData: Package;
@@ -28,10 +27,9 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
 
   const finalPrice = calculateFinalPrice(packageData);
   const savedAmount = packageData.price - finalPrice;
-  const destination = destinations.find(d => d.id === packageData.destinationId);
-  const itinerary = getPackageItinerary(packageData.id);
+  const destination = destinations.find((d: any) => d.id === packageData.destinationId);
   const reviews = getPackageReviews(packageData.id);
-  const tourOperator = tourOperators.find(to => to.id === packageData.tourOperatorId);
+  const tourOperator = tourOperators.find((to: any) => to.id === packageData.tourOperatorId);
 
   const handleFavoriteClick = () => {
     toggleFavorite(packageData.id);

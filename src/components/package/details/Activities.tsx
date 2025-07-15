@@ -56,14 +56,14 @@ const Activities: React.FC<ActivitiesProps> = ({ packageData }) => {
               <div className="p-4 bg-gray-50 border-t border-gray-200">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {activities.map((activity) => (
-                    <div 
-                      key={activity.id}
+                    <div
+                      key={activity?.id}
                       className="bg-white rounded-lg overflow-hidden"
                     >
-                      {activity.image && (
+                      {activity?.image && (
                         <img 
-                          src={activity.image}
-                          alt={activity.name}
+                          src={activity?.image}
+                          alt={activity?.name}
                           className="w-full h-48 object-cover"
                         />
                       )}
@@ -71,16 +71,16 @@ const Activities: React.FC<ActivitiesProps> = ({ packageData }) => {
                         <div className="flex items-start gap-3">
                           <Activity className="h-5 w-5 text-primary-600 mt-1" />
                           <div>
-                            <h4 className="font-medium">{activity.name}</h4>
-                            <p className="text-sm text-gray-500">{activity.description}</p>
+                            <h4 className="font-medium">{activity?.name}</h4>
+                            <p className="text-sm text-gray-500">{activity?.description}</p>
                             <div className="mt-2 flex flex-wrap gap-2">
                               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                                {activity.duration} hours
+                                {activity?.duration} hours
                               </span>
                               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded capitalize">
-                                {activity.difficulty}
+                                {activity?.difficulty}
                               </span>
-                              {activity.included && (
+                              {activity?.included && (
                                 <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
                                   Included
                                 </span>

@@ -10,8 +10,6 @@ import Reviews from './details/Reviews';
 import Policies from './details/Policies';
 import { Package } from '../../types';
 import { useFavoritesStore } from '../../store/useStore';
-import { generateItineraryPDF } from '../../utils/pdfGenerator';
-import { getPackageItinerary } from '../../data/itineraries';
 import { destinations } from '../../data/destinations';
 import { getPackageReviews } from '../../data/reviews';
 import { tourOperators } from '../../data/tour-operators';
@@ -29,7 +27,6 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
   const finalPrice = calculateFinalPrice(packageData);
   const savedAmount = packageData.price - finalPrice;
   const destination = destinations.find(d => d.id === packageData.destinationId);
-  const itinerary = getPackageItinerary(packageData.id);
   const reviews = getPackageReviews(packageData.id);
   const tourOperator = tourOperators.find(to => to.id === packageData.tourOperatorId);
 
@@ -38,7 +35,8 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
   };
 
   const handleDownloadClick = () => {
-    generateItineraryPDF(packageData);
+    // PDF generation temporarily disabled
+    alert('PDF download feature will be available soon!');
   };
 
   return (

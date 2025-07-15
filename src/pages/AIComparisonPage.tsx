@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
 import ChatInterface from '../components/ai/ChatInterface';
 import ItineraryPlanner from '../components/itinerary/ItineraryPlanner';
 import { Package } from '../types';
-import { getPackageById } from '../data/packages';
 
 const AIComparisonPage: React.FC = () => {
-  const location = useLocation();
-  const [currentPackage, setCurrentPackage] = useState<Package | null>(null);
+  const [currentPackage] = useState<Package | null>(null);
   const [activeView, setActiveView] = useState<'chat' | 'itinerary'>('chat');
   const [isMobile, setIsMobile] = useState(false);
 

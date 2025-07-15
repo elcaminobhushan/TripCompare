@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { packages, getPackageById } from '../data/packages';
+import { useLocation } from 'react-router-dom';
+import { packages } from '../data/packages';
 import { destinations } from '../data/destinations';
 import { Package } from '../types';
 import { useCompare } from '../hooks/useCompare';
@@ -44,13 +44,11 @@ const trendingDestinations = [
 
 const PackageListingPage: React.FC = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [activeDestinationId, setActiveDestinationId] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [filteredPackages, setFilteredPackages] = useState<Package[]>([]);
   const [sortOption, setSortOption] = useState<SortOption>('price-low');
-  const [showFilters, setShowFilters] = useState(true);
   const [expandedFilters, setExpandedFilters] = useState<string[]>(['price']);
   const { compareList } = useCompare();
   

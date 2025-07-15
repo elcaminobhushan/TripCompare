@@ -19,10 +19,7 @@ export interface Package {
   discount?: number;
   departureLocations: string[]; // References to location IDs
   tourOperatorId: string;
-  tagIds: string[];
-  imageIds: string[];
-  ratingIds: string[];
-  reviewIds: string[];
+  tags: string[];
 }
 
 export interface Destination {
@@ -36,7 +33,6 @@ export interface Destination {
   languages: string[];
   currency: string;
   timeZone: string;
-  locationIds: string[];
 }
 
 export interface TourOperator {

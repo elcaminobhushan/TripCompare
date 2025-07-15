@@ -12,7 +12,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.8,
     reviews: 124,
-    amenityIds: ["amen1", "amen2", "amen3", "amen4", "amen5"],
+    amenities: ["Pool", "Spa", "WiFi", "Restaurant", "Room Service"],
     description: "Experience the ultimate relaxation in Bali with this all-inclusive beach package.",
     itineraryId: "itin1",
     accommodationId: "acc1",
@@ -30,9 +30,9 @@ export const packages: Package[] = [
       "Additional meals not specified"
     ],
     featured: true,
-    locationIds: ["loc1"],
     tourOperatorId: "to1",
-    tagIds: ["tag1", "tag7", "tag11"]
+    tags: ["Beach", "All-Inclusive", "Luxury"],
+    departureLocations: ["Mumbai", "Delhi"],
   },
   {
     id: "p2",
@@ -44,7 +44,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.7,
     reviews: 98,
-    amenityIds: ["amen1", "amen2", "amen3"],
+    amenities: ["Pool", "Spa", "WiFi"],
     description: "Immerse yourself in Balinese culture with temple visits and traditional experiences.",
     itineraryId: "itin2",
     accommodationId: "acc1",
@@ -60,9 +60,9 @@ export const packages: Package[] = [
       "Personal expenses",
       "Optional activities"
     ],
-    locationIds: ["loc1"],
     tourOperatorId: "to1",
-    tagIds: ["tag3", "tag7"]
+    tags: ["Cultural", "All-Inclusive"],
+    departureLocations: ["Mumbai", "Delhi"],
   },
 
   // Swiss Alps Packages
@@ -76,7 +76,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.9,
     reviews: 156,
-    amenityIds: ["amen1", "amen5"],
+    amenities: ["Pool", "Fitness Center"],
     description: "Experience the thrill of skiing in the majestic Swiss Alps.",
     itineraryId: "itin3",
     accommodationId: "acc2",
@@ -93,9 +93,9 @@ export const packages: Package[] = [
       "Additional equipment"
     ],
     featured: true,
-    locationIds: ["loc2"],
     tourOperatorId: "to2",
-    tagIds: ["tag2", "tag8"]
+    tags: ["Adventure", "Family-Friendly"],
+    departureLocations: ["Mumbai", "Delhi"],
   },
   {
     id: "p4",
@@ -107,7 +107,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.8,
     reviews: 112,
-    amenityIds: ["amen2", "amen3", "amen5"],
+    amenities: ["Spa", "WiFi", "Fitness Center"],
     description: "Indulge in a luxurious mountain retreat with spa treatments and gourmet dining.",
     itineraryId: "itin4",
     accommodationId: "acc2",
@@ -123,9 +123,9 @@ export const packages: Package[] = [
       "Travel insurance",
       "Additional activities"
     ],
-    locationIds: ["loc2"],
     tourOperatorId: "to2",
-    tagIds: ["tag11", "tag7"]
+    tags: ["Luxury", "All-Inclusive"],
+    departureLocations: ["Mumbai", "Delhi"],
   },
 
   // Kyoto Packages
@@ -139,7 +139,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.9,
     reviews: 178,
-    amenityIds: ["amen3", "amen4"],
+    amenities: ["Restaurant", "Room Service"],
     description: "Discover the ancient traditions and beauty of Kyoto.",
     itineraryId: "itin5",
     accommodationId: "acc3",
@@ -156,9 +156,9 @@ export const packages: Package[] = [
       "Optional activities"
     ],
     featured: true,
-    locationIds: ["loc3"],
+    departureLocations: ["Mumbai", "Delhi"],
     tourOperatorId: "to3",
-    tagIds: ["tag3", "tag11"]
+    tags: ["Cultural", "Luxury"]
   },
   {
     id: "p6",
@@ -170,7 +170,7 @@ export const packages: Package[] = [
     duration: 3,
     rating: 4.7,
     reviews: 145,
-    amenityIds: ["amen3", "amen4"],
+    amenities: ["Restaurant", "Room Service"],
     description: "Explore Kyoto's most beautiful gardens and peaceful temples.",
     itineraryId: "itin6",
     accommodationId: "acc3",
@@ -186,9 +186,9 @@ export const packages: Package[] = [
       "Personal expenses",
       "Optional activities"
     ],
-    locationIds: ["loc3"],
+    departureLocations: ["Mumbai", "Delhi"],
     tourOperatorId: "to3",
-    tagIds: ["tag3", "tag12"]
+    tags: ["Cultural", "Eco-Friendly"]
   },
   // Thailand Packages
 {
@@ -201,7 +201,7 @@ export const packages: Package[] = [
   duration: 3,
   rating: 4.6,
   reviews: 87,
-  amenityIds: ["amen1", "amen2", "amen3"],
+  amenities: ["Pool", "Spa", "Restaurant"],
   description: "Dive into the vibrant city life of Bangkok with this exciting urban tour.",
   itineraryId: "itin6",
   accommodationId: "acc3",
@@ -219,9 +219,9 @@ export const packages: Package[] = [
     "Personal expenses"
   ],
   featured: true,
-  locationIds: ["loc4"],
+  departureLocations: ["Mumbai", "Delhi"],
   tourOperatorId: "to3",
-  tagIds: ["tag3", "tag7"]
+  tags: ["Cultural", "All-Inclusive"]
 },
 {
   id: "p8",
@@ -233,7 +233,7 @@ export const packages: Package[] = [
   duration: 3,
   rating: 4.8,
   reviews: 134,
-  amenityIds: ["amen1", "amen4", "amen5"],
+  amenities: ["Pool", "Room Service", "Fitness Center"],
   description: "Unwind on the white-sand beaches of Phuket with this relaxing island retreat.",
   itineraryId: "itin6",
   accommodationId: "acc3",
@@ -250,9 +250,9 @@ export const packages: Package[] = [
     "Additional meals",
     "Optional excursions"
   ],
-  locationIds: ["loc5"],
+  departureLocations: ["Mumbai", "Delhi"],
   tourOperatorId: "to3",
-  tagIds: ["tag1", "tag11"]
+  tags: ["Beach", "Luxury"]
 }
 
 ];

@@ -1,8 +1,8 @@
-import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCompareStore } from '../../store/useStore';
 import { Scale, Sparkles } from 'lucide-react';
 import { getPackageById } from '../../data/packages';
+import { Package } from '../../types';
 
 export default function CompareButton() {
   const navigate = useNavigate();
@@ -17,12 +17,12 @@ export default function CompareButton() {
     // Get package details
     const packages = compareList
       .map(id => getPackageById(id))
-      .filter(Boolean);
+      .filter((pkg): pkg is Package => pkg !== undefined);
     
     // Store packages for AI comparison
     localStorage.setItem('initialAIResponse', JSON.stringify({
       packages,
-      content: `Compare these packages: ${packages.map(pkg => pkg.title).join(' and ')}`
+      content: `Compare these packages: ${packages.map((pkg: Package) => pkg.title).join(' and ')}`
     }));
     
     navigate('/ai-comparison');

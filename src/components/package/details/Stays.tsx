@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Package } from '../../../types';
-import { ChevronDown, ChevronUp, BedDouble, Star, CheckCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, Star, CheckCircle } from 'lucide-react';
 import { getPackageItinerary } from '../../../data/itineraries';
 import { getAccommodationById } from '../../../data/accommodations';
 

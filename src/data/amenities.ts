@@ -1,4 +1,3 @@
-```typescript
 export interface Amenity {
   id: string;
   name: string;
@@ -57,4 +56,3 @@ export const getAmenityById = (id: string): Amenity | undefined => {
 export const getAmenitiesByCategory = (category: Amenity['category']): Amenity[] => {
   return amenities.filter(amenity => amenity.category === category);
 };
-```

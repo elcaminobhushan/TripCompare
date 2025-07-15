@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Package } from '../../types';
 import { 
-  MapPin, Hotel, Bus, Activity, ChevronDown, ChevronUp, Phone, Eye, Calendar,
-  X, Trash2, Edit2, Plus, Clock, MapPinned, BedDouble, Car, Menu
+  Activity, Phone, Eye, Calendar, Clock, MapPinned, BedDouble, Car, Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FloatingContactForm from '../contact/FloatingContactForm';
 import { getPackageItinerary } from '../../data/itineraries';
 import { getActivityById } from '../../data/activities';
-import { getMealById } from '../../data/meals';
 import { getAccommodationById } from '../../data/accommodations';
 import { getTransportById } from '../../data/transport';
 import FullItineraryModal from './FullItineraryModal';

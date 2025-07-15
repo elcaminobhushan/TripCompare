@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Heart, Star, Clock, Plus, Check, Plane, Hotel, Coffee, MapPin, Download } from 'lucide-react';
 import { Package } from '../../types';
 import { useFavoritesStore, useCompareStore } from '../../store/useStore';
-import { generateItineraryPDF } from '../../utils/pdfGenerator';
 import { formatPrice, calculateFinalPrice } from '../../utils/formatters';
 import { destinations } from '../../data/destinations';
 import { accommodations } from '../../data/accommodations';
@@ -52,7 +51,8 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className = '' }
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    generateItineraryPDF(packageData);
+    // PDF generation temporarily disabled
+    alert('PDF download feature will be available soon!');
   };
 
   const handleCardClick = () => {

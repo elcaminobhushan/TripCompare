@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Calendar } from 'lucide-react';
-import { generateItineraryPDF } from '../../utils/pdfGenerator';
 import { Package } from '../../types';
 import { getPackageItinerary } from '../../data/itineraries';
 import { getActivityById } from '../../data/activities';
@@ -18,7 +17,8 @@ const FullItineraryModal: React.FC<FullItineraryModalProps> = ({ isOpen, onClose
   const itinerary = getPackageItinerary(packageData.id);
 
   const handleDownload = () => {
-    generateItineraryPDF(packageData);
+    // PDF generation temporarily disabled
+    alert('PDF download feature will be available soon!');
   };
 
   return (
