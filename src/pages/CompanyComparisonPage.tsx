@@ -421,7 +421,7 @@ const CompanyComparisonPage: React.FC = () => {
                             • Breakfast ({1})
                           </div>
                         )}
-                        {company.mealsIncluded && (
+                        {!company.mealsIncluded && (
                           <span className="text-gray-500 text-sm">No meals included</span>
                         )}
                       </div>
