@@ -87,7 +87,7 @@ const ItineraryPlanner: React.FC<ItineraryPlannerProps> = ({ packages }) => {
               <Calendar className="h-5 w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
               <span className="truncate">{currentPackage.title}</span>
             </h2>
-            <p className="text-gray-600 mt-1 text-sm md:text-base">{currentPackage.duration} days itinerary</p>
+            <p className="text-gray-600 mt-1 text-sm md:text-base">{currentPackage.duration_days} days itinerary</p>
           </div>
           
           <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">

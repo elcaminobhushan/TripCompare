@@ -26,9 +26,9 @@ const Overview: React.FC<OverviewProps> = ({ packageData }) => {
   return (
     <div className="space-y-6">
       {itinerary.map((day) => {
-        const activities = day.activities.map(id => getActivityById(id)).filter(Boolean);
-        const meals = day.meals.map(id => getMealById(id)).filter(Boolean);
-        const accommodation = getAccommodationById(day.accommodation);
+        const activities = (day.activities ?? []).map(id => getActivityById(id)).filter(Boolean);
+        const meals = (day.meals ?? []).map(id => getMealById(id)).filter(Boolean);
+        const accommodation = day.accommodation? getAccommodationById(day.accommodation) : null;
         const transports = day.transport?.map(id => getTransportById(id)).filter(Boolean) || [];
         
         return (

@@ -35,7 +35,7 @@ const Stays: React.FC<StaysProps> = ({ packageData }) => {
   return (
     <div className="space-y-6">
       {itinerary.map((day) => {
-        const accommodation = getAccommodationById(day.accommodation);
+        const accommodation = day.accommodation? getAccommodationById(day.accommodation) : null;
         if (!accommodation) return null;
 
         return (

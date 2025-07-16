@@ -93,7 +93,7 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
             <td className="px-6 py-4 font-medium">Duration</td>
             {packages.map((pkg) => (
               <td key={pkg.id} className="px-6 py-4">
-                {pkg.duration} {pkg.duration === 1 ? 'day' : 'days'}
+                {pkg.duration_days} {pkg.duration_days === 1 ? 'day' : 'days'}
               </td>
             ))}
           </tr>
@@ -147,7 +147,7 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
             {packages.map((pkg) => {
               const itinerary = getPackageItinerary(pkg.id);
               const meals = itinerary.reduce((acc, day) => {
-                day.meals.forEach(mealId => {
+                (day.meals ?? []).forEach(mealId => {
                   const meal = getMealById(mealId);
                   if (meal) {
                     if (meal.type === 'breakfast') acc.breakfast++;
@@ -157,6 +157,7 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
                 });
                 return acc;
               }, { breakfast: 0, lunch: 0, dinner: 0 });
+              
               
               return (
                 <td key={pkg.id} className="px-6 py-4">
@@ -200,21 +201,6 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
             })}
           </tr>
           
-          {/* Amenities */}
-          <tr>
-            <td className="px-6 py-4 font-medium">Amenities</td>
-            {packages.map((pkg) => (
-              <td key={pkg.id} className="px-6 py-4">
-                <div className="flex flex-wrap gap-1">
-                  {pkg.amenities.map((amenity, index) => (
-                    <span key={index} className="badge bg-gray-100 text-gray-700">
-                      {amenity}
-                    </span>
-                  ))}
-                </div>
-              </td>
-            ))}
-          </tr>
           
           {/* Actions */}
           <tr>

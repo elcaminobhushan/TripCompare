@@ -1,9 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCompareStore } from '../../store/useStore';
-import { Scale, Sparkles } from 'lucide-react';
-import { getPackageById } from '../../data/packages';
-import { Package } from '../../types';
-
+import { Scale } from 'lucide-react';
 export default function CompareButton() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,20 +10,20 @@ export default function CompareButton() {
     navigate('/company-comparison');
   };
 
-  const handleAskAIClick = () => {
-    // Get package details
-    const packages = compareList
-      .map(id => getPackageById(id))
-      .filter((pkg): pkg is Package => pkg !== undefined);
+  // const handleAskAIClick = () => {
+  //   // Get package details
+  //   const packages = compareList
+  //     .map(id => getPackageById(id))
+  //     .filter((pkg): pkg is Package => pkg !== undefined);
     
-    // Store packages for AI comparison
-    localStorage.setItem('initialAIResponse', JSON.stringify({
-      packages,
-      content: `Compare these packages: ${packages.map((pkg: Package) => pkg.title).join(' and ')}`
-    }));
+  //   // Store packages for AI comparison
+  //   localStorage.setItem('initialAIResponse', JSON.stringify({
+  //     packages,
+  //     content: `Compare these packages: ${packages.map((pkg: Package) => pkg.title).join(' and ')}`
+  //   }));
     
-    navigate('/ai-comparison');
-  };
+  //   navigate('/ai-comparison');
+  // };
 
   // Don't show buttons on comparison pages
   if (location.pathname === '/ai-comparison' || location.pathname === '/company-comparison' || compareList.length < 1) {

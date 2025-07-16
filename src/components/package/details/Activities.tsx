@@ -23,7 +23,7 @@ const Activities: React.FC<ActivitiesProps> = ({ packageData }) => {
   return (
     <div className="space-y-6">
       {itinerary.map((day) => {
-        const activities = day.activities.map(id => getActivityById(id)).filter(Boolean);
+        const activities = (day.activities ?? []).map(id => getActivityById(id)).filter(Boolean);
         
         return (
           <div 

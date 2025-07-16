@@ -36,7 +36,7 @@ export const processUserInput = (input: string): ChatResponseData => {
     accommodation: firstPackage.accommodationId ? getAccommodationById(firstPackage.accommodationId) : null,
     transport: firstPackage.transportIds?.map((id: string) => getTransportById(id)).filter(Boolean) || [],
     activities: getPackageItinerary(firstPackage.id)?.reduce((acc: any[], day) => {
-      const dayActivities = day.activities.map(id => getActivityById(id)).filter(Boolean);
+      const dayActivities = ( day.activities ?? []).map(id => getActivityById(id)).filter(Boolean);
       return [...acc, ...dayActivities];
     }, []) || []
   } : null;

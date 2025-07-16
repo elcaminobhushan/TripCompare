@@ -42,7 +42,7 @@ const FullItineraryModal: React.FC<FullItineraryModalProps> = ({ isOpen, onClose
                 <Calendar className="h-6 w-6 text-primary-600" />
                 <div>
                   <h2 className="text-2xl font-semibold">{packageData.title}</h2>
-                  <p className="text-gray-600">{packageData.duration} days itinerary</p>
+                  <p className="text-gray-600">{packageData.duration_days} days itinerary</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -76,11 +76,11 @@ const FullItineraryModal: React.FC<FullItineraryModalProps> = ({ isOpen, onClose
                     </div>
 
                     {/* Activities */}
-                    {day.activities.length > 0 && (
+                    {day.activities && day.activities.length > 0 && (
                       <div className="space-y-3">
                         <h4 className="font-medium">Activities</h4>
                         <div className="grid gap-4">
-                          {day.activities.map((activityId) => {
+                          {( day.activities ?? []).map((activityId) => {
                             const activity = getActivityById(activityId);
                             return activity && (
                               <div key={activityId} className="bg-white rounded-xl p-4 border border-gray-200">
