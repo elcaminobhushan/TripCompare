@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
 import { Package } from '../../../types';
-import { ChevronDown, ChevronUp, Plane, CheckCircle, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, Plane,Bus,Ship,Train,Car,Route, CheckCircle } from 'lucide-react';
 import { getPackageItinerary } from '../../../data/itineraries';
 import { getTransportById } from '../../../data/transport';
 
 interface TransportProps {
   packageData: Package;
 }
+
+const getTransportIcon = (type: string) => {
+  switch (type) {
+    case "flight":
+      return <Plane className="h-6 w-6 text-primary-600" />;
+    case "bus":
+    case "van":
+      return <Bus className="h-6 w-6 text-primary-600" />;
+    case "train":
+      return <Train className="h-6 w-6 text-primary-600" />;
+    case "boat":
+    case "ferry":
+      return <Ship className="h-6 w-6 text-primary-600" />;
+    case "car":
+      return <Car className="h-6 w-6 text-primary-600" />;
+    default:
+      return <Route className="h-6 w-6 text-primary-600" />;
+  }
+};
+
 
 const Transport: React.FC<TransportProps> = ({ packageData }) => {
   const [expandedDays, setExpandedDays] = useState<number[]>([1]);
@@ -65,12 +85,12 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
                 {transportsForDay.map((transport: any, index: number) => (
                   <div key={transport.id} className={`bg-white rounded-lg p-6 ${index > 0 ? 'mt-4' : ''}`}>
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="h-12 w-12 bg-primary-50 rounded-full flex items-center justify-center">
-                        <Plane className="h-6 w-6 text-primary-600" />
+                    <div className="h-12 w-12 bg-primary-50 rounded-full flex items-center justify-center">
+                    {getTransportIcon(transport.type)}
                       </div>
                       <div>
                         <h4 className="font-medium">{transport.name}</h4>
-                        <p className="text-sm text-gray-500">Provided by {transport.provider}</p>
+                        {/* <p className="text-sm text-gray-500">Provided by {transport.provider}</p> */}
                       </div>
                     </div>
 
@@ -91,7 +111,7 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
                         </div>
                       )}
                       
-                      <div className="flex items-center gap-2">
+                      {/* <div className="flex items-center gap-2">
                         {transport.included ? (
                           <>
                             <CheckCircle className="h-5 w-5 text-green-600" />
@@ -107,7 +127,7 @@ const Transport: React.FC<TransportProps> = ({ packageData }) => {
                             </span>
                           </>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}

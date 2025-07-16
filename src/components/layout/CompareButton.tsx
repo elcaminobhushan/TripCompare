@@ -34,14 +34,14 @@ export default function CompareButton() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-      <button
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3"> 
+      {/* <button
         onClick={handleAskAIClick}
         className="btn bg-purple-600 hover:bg-purple-700 text-white shadow-lg flex items-center gap-2 px-6 py-3"
       >
         <Sparkles className="h-5 w-5" />
         Ask AI
-      </button>
+      </button> */}
       <button
         onClick={handleCompareClick}
         className="btn-primary shadow-lg flex items-center gap-2 px-6 py-3"

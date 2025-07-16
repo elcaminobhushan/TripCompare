@@ -5,10 +5,10 @@ export interface Package {
   image: string;
   price: number;
   currency: string;
-  duration: number;
+  duration_days: number;
+  duration_nights: number;
   rating: number;
-  reviews: number;
-  amenities: string[]; // References to amenity IDs
+  reviews: number;// References to amenity IDs
   description: string;
   itineraryId: string;
   accommodationId: string;
@@ -20,6 +20,7 @@ export interface Package {
   departureLocations: string[]; // References to location IDs
   tourOperatorId: string;
   tags: string[];
+  itinerary : string;
 }
 
 export interface Destination {

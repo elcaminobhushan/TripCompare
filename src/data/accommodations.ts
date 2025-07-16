@@ -19,26 +19,6 @@ export const accommodations: Accommodation[] = [
     image: "https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg",
     location: "Bali",
     description: "Luxury beachfront resort with world-class amenities and stunning ocean views."
-  },
-  {
-    id: "acc2",
-    name: "Alpine Lodge Zermatt",
-    type: "4-Star Mountain Chalet",
-    rating: 4.5,
-    amenities: ["Ski-in/Ski-out", "Sauna", "Hot Tub", "Restaurant", "Bar", "Boot Warmers"],
-    image: "https://images.pexels.com/photos/754268/pexels-photo-754268.jpeg",
-    location: "Swiss Alps",
-    description: "Traditional Swiss chalet with modern amenities and direct access to ski slopes."
-  },
-  {
-    id: "acc3",
-    name: "Kyoto Traditional Inn",
-    type: "Luxury Ryokan",
-    rating: 4.8,
-    amenities: ["Onsen", "Tea Ceremony Room", "Garden", "Traditional Dining", "Meditation Space"],
-    image: "https://images.pexels.com/photos/2624031/pexels-photo-2624031.jpeg",
-    location: "Kyoto",
-    description: "Authentic Japanese ryokan offering traditional hospitality and cultural experiences."
   }
 ];
 

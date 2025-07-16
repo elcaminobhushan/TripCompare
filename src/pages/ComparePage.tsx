@@ -309,7 +309,7 @@ const ComparePage: React.FC = () => {
                           <div className="grid grid-cols-2 gap-4 mb-4">
                             <div className="flex items-center gap-2">
                               <Calendar className="h-5 w-5 text-gray-400" />
-                              <span>{pkg.duration} days</span>
+                              <span>{pkg.duration_days} days</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Star className="h-5 w-5 text-amber-400 fill-current" />

@@ -17,54 +17,55 @@ export interface Meal {
 }
 
 export const meals: Meal[] = [
-  {
-    id: "meal1",
-    name: "International Breakfast Buffet",
-    type: "breakfast",
-    cuisine: "International",
-    description: "Extensive buffet featuring both Western and local breakfast options.",
-    image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
-    dietary: {
-      vegetarian: true,
-      vegan: true,
-      glutenFree: true,
-      halal: true,
-      kosher: false
+    {
+      id: "meal1",
+      name: "Hotel Breakfast",
+      type: "breakfast",
+      cuisine: "Continental/Thai",
+      description: "Standard hotel breakfast including options like toast, eggs, fruits, and juices.",
+      image: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+      dietary: {
+        vegetarian: true,
+        vegan: false,
+        glutenFree: false,
+        halal: true,
+        kosher: false
+      },
+      included: true
     },
-    included: true
-  },
-  {
-    id: "meal2",
-    name: "Alpine Fondue Dinner",
-    type: "dinner",
-    cuisine: "Swiss",
-    description: "Traditional Swiss cheese fondue with bread and vegetables.",
-    image: "https://images.pexels.com/photos/3649208/pexels-photo-3649208.jpeg",
-    dietary: {
-      vegetarian: true,
-      vegan: false,
-      glutenFree: false,
-      halal: false,
-      kosher: false
+    {
+      id: "meal2",
+      name: "Indian Lunch - Phi Phi Island Tour",
+      type: "lunch",
+      cuisine: "Indian",
+      description: "Indian set lunch served at the beachside during the Phi Phi Island day tour.",
+      image: "https://images.pexels.com/photos/1343501/pexels-photo-1343501.jpeg",
+      dietary: {
+        vegetarian: true,
+        vegan: false,
+        glutenFree: false,
+        halal: true,
+        kosher: false
+      },
+      included: true
     },
-    included: true
-  },
-  {
-    id: "meal3",
-    name: "Traditional Japanese Kaiseki",
-    type: "dinner",
-    cuisine: "Japanese",
-    description: "Multi-course traditional Japanese dinner.",
-    image: "https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg",
-    dietary: {
-      vegetarian: false,
-      vegan: false,
-      glutenFree: true,
-      halal: false,
-      kosher: false
-    },
-    included: true
-  }
+    {
+      id: "meal3",
+      name: "Indian Lunch - 4 Island Tour",
+      type: "lunch",
+      cuisine: "Indian",
+      description: "Fixed Indian lunch provided during the 4 Island Tour from Krabi.",
+      image: "https://images.pexels.com/photos/5864728/pexels-photo-5864728.jpeg",
+      dietary: {
+        vegetarian: true,
+        vegan: false,
+        glutenFree: false,
+        halal: true,
+        kosher: false
+      },
+      included: true
+    }
+  
 ];
 
 export const getMealById = (id: string): Meal | undefined => {

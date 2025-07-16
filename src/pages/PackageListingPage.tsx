@@ -24,23 +24,9 @@ interface FilterState {
   inclusions: string[];
 }
 
-const trendingDestinations = [
-  {
-    name: "Bali",
-    image: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg",
-    searches: 1250
-  },
-  {
-    name: "Swiss Alps",
-    image: "https://images.pexels.com/photos/773594/pexels-photo-773594.jpeg",
-    searches: 980
-  },
-  {
-    name: "Maldives",
-    image: "https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg",
-    searches: 875
-  }
-];
+const trendingDestinations = (destinations || []).filter(dest => dest?.trending === true);
+
+
 
 const PackageListingPage: React.FC = () => {
   const location = useLocation();
@@ -53,7 +39,7 @@ const PackageListingPage: React.FC = () => {
   const { compareList } = useCompare();
   
   const [filters, setFilters] = useState<FilterState>({
-    priceRange: [0, 5000],
+    priceRange: [0, 500000],
     duration: [1, 14],
     rating: null,
     amenities: [],
@@ -87,12 +73,10 @@ const PackageListingPage: React.FC = () => {
 
     results = results.filter(pkg => {
       const matchesPrice = pkg.price >= filters.priceRange[0] && pkg.price <= filters.priceRange[1];
-      const matchesDuration = pkg.duration >= filters.duration[0] && pkg.duration <= filters.duration[1];
+      const matchesDuration = pkg.duration_days >= filters.duration[0] && pkg.duration_days <= filters.duration[1];
       const matchesRating = !filters.rating || pkg.rating >= filters.rating;
-      const matchesAmenities = filters.amenities.length === 0 || 
-        filters.amenities.every(amenity => pkg.amenities.includes(amenity));
       
-      return matchesPrice && matchesDuration && matchesRating && matchesAmenities;
+      return matchesPrice && matchesDuration && matchesRating;
     });
 
     setFilteredPackages(results);
@@ -128,9 +112,9 @@ const PackageListingPage: React.FC = () => {
       case 'rating':
         return sorted.sort((a, b) => b.rating - a.rating);
       case 'duration-short':
-        return sorted.sort((a, b) => a.duration - b.duration);
+        return sorted.sort((a, b) => a.duration_days - b.duration_days);
       case 'duration-long':
-        return sorted.sort((a, b) => b.duration - a.duration);
+        return sorted.sort((a, b) => b.duration_days - a.duration_days);
       default:
         return sorted;
     }
@@ -178,7 +162,7 @@ const PackageListingPage: React.FC = () => {
               onFilterChange={handleFilterChange}
               onReset={() => {
                 setFilters({
-                  priceRange: [0, 5000],
+                  priceRange: [0, 500000],
                   duration: [1, 14],
                   rating: null,
                   amenities: [],
@@ -228,7 +212,7 @@ const PackageListingPage: React.FC = () => {
                 <button
                   onClick={() => {
                     setFilters({
-                      priceRange: [0, 5000],
+                      priceRange: [0, 500000],
                       duration: [1, 14],
                       rating: null,
                       amenities: [],

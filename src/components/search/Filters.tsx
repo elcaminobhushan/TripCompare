@@ -20,7 +20,7 @@ interface FiltersProps {
 }
 
 const Filters: React.FC<FiltersProps> = ({ onFilterChange, className = '' }) => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
   const [duration, setDuration] = useState<[number, number]>([1, 14]);
   const [rating, setRating] = useState<number | null>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
@@ -77,12 +77,12 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange, className = '' }) => 
   };
 
   const resetFilters = () => {
-    setPriceRange([0, 5000]);
+    setPriceRange([0, 500000]);
     setDuration([1, 14]);
     setRating(null);
     setSelectedAmenities([]);
     onFilterChange({
-      priceRange: [0, 5000],
+      priceRange: [0, 500000],
       duration: [1, 14],
       rating: null,
       amenities: []

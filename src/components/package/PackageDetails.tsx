@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Calendar, Download, FileText, Heart, Home, Info, MapPin, Phone, Plane, Shield, Star, Utensils } from 'lucide-react';
+import { Activity, Calendar, Download, FileText, Heart, Home, Info, MapPin, Phone, Plane, Shield, Star } from 'lucide-react';
 import { formatPrice, calculateFinalPrice } from '../../utils/formatters';
 import FloatingContactForm from '../contact/FloatingContactForm';
 import Overview from './details/Overview';
@@ -35,9 +35,22 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
   };
 
   const handleDownloadClick = () => {
-    // PDF generation temporarily disabled
-    alert('PDF download feature will be available soon!');
+    if (!packageData.itinerary) {
+      alert("No itinerary file specified.");
+      return;
+    }
+  
+    
+    const fileUrl = `/itenaries/${packageData.itinerary}`;
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = packageData.itinerary;
+    link.target = "_blank"; // Optional: open in new tab
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+  
 
   return (
     <div>
@@ -61,8 +74,9 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-5 w-5 text-gray-500" />
-                    <span>{packageData.duration} days</span>
+                    <span>{packageData.duration_nights} Nights / {packageData.duration_days} Days</span>
                   </div>
+
                 </div>
 
                 {/* Main Image */}
@@ -75,7 +89,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                 </div>
 
                 {/* Features */}
-                <div className="grid grid-cols-2 gap-4">
+                {/* <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
                     <Utensils className="h-5 w-5 text-primary-600" />
                     <span>Breakfast Included</span>
@@ -84,7 +98,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                     <Activity className="h-5 w-5 text-primary-600" />
                     <span>Sightseeing Included</span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -271,8 +285,12 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                   <div className="flex items-center gap-3 text-gray-600">
                     <Calendar className="h-5 w-5 text-primary-600" />
                     <div>
-                      <span className="font-medium">Best Time to Visit</span>
-                      <p className="text-sm">March to May, September to November</p>
+                      <span className="font-medium">Best Time to Visit</span>   
+                      <p className="text-sm">
+                        {destination?.popularMonths
+                          ? destination.popularMonths
+                          : 'Not specified'}
+                      </p>
                     </div>
                   </div>
                   

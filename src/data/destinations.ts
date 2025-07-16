@@ -9,81 +9,78 @@ export interface Destination {
   languages: string[];
   currency: string;
   timeZone: string;
+  trending : Boolean;
+  searches : number;
 }
 
 export const destinations: Destination[] = [
   {
     id: "d1",
+    name: "Phuket/Krabi",
+    country: "Thailand",
+    image: "https://images.ctfassets.net/wv75stsetqy3/DaKdXY2tkQGWeVQiCbSx7/ac01166282697e4e0cafb99180d35cd1/Thailand_Featured.jpg?q=60&fit=fill&fm=webp",
+    description: "Thailand blends stunning beaches, ancient temples, delicious street food, and bustling cities. From the party island of Phuket to the cultural charm of Chiang Mai and the vibrant streets of Bangkok, Thailand offers something for every traveler.",
+    popularMonths: ["November - February"],
+    climate: "Tropical with three seasons: hot, rainy, and cool",
+    languages: ["Thai", "English (widely spoken in tourist areas)"],
+    currency: "Thai Baht (THB)",
+    timeZone: "UTC+7",
+    trending : true,
+    searches : 100
+    // topAttractions: ["Phuket", "Chiang Mai", "Krabi", "Bangkok", "Full Moon Party (Koh Phangan)"],
+    // idealFor: ["Budget travelers", "Solo travelers", "Nightlife seekers", "Cultural explorers"]
+  }, 
+  {
+    id: "d2",
     name: "Bali",
     country: "Indonesia",
     image: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg",
-    description: "Experience the Island of the Gods with its pristine beaches, vibrant culture, and spiritual retreats.",
-    popularMonths: ["June", "July", "August", "September"],
-    climate: "Tropical",
-    languages: ["Indonesian", "Balinese"],
+    description: "Bali, the Island of the Gods, is a tropical paradise known for its breathtaking beaches, lush rice terraces, spiritual temples, and vibrant nightlife. It's perfect for both relaxation and adventure, with world-class surfing, yoga retreats, and cultural heritage sites like Uluwatu and Tanah Lot.",
+    popularMonths: ["June - September"],
+    climate: "Tropical with wet and dry seasons",
+    languages: ["Indonesian", "Balinese", "English"],
     currency: "Indonesian Rupiah (IDR)",
-    timeZone: "UTC+8"
+    timeZone: "UTC+8",
+    trending : false,
+    searches : 100
   },
-  {
-    id: "d2",
-    name: "Swiss Alps",
-    country: "Switzerland",
-    image: "https://images.pexels.com/photos/773594/pexels-photo-773594.jpeg",
-    description: "Discover the breathtaking beauty of the Swiss Alps with world-class skiing and charming villages.",
-    popularMonths: ["December", "January", "February", "March"],
-    climate: "Alpine",
-    languages: ["German", "French", "Italian", "Romansh"],
-    currency: "Swiss Franc (CHF)",
-    timeZone: "UTC+1"
-  },
+
   {
     id: "d3",
-    name: "Kyoto",
-    country: "Japan",
-    image: "https://images.pexels.com/photos/5007442/pexels-photo-5007442.jpeg",
-    description: "Immerse yourself in Japan's ancient capital with its temples, gardens, and traditional culture.",
-    popularMonths: ["March", "April", "October", "November"],
-    climate: "Temperate",
-    languages: ["Japanese"],
-    currency: "Japanese Yen (JPY)",
-    timeZone: "UTC+9"
+    name: "Ho Chi Minh City",
+    country: "Vietnam",
+    image: "https://www.travelseasons.in/tour_images/vietnam-tour.jpg",
+    description: "Vietnam offers a diverse landscape of emerald rice paddies, limestone karsts, colonial architecture, and buzzing street markets. It's known for its motorbike adventures, mouthwatering cuisine, and breathtaking natural wonders like Ha Long Bay.",
+    popularMonths: ["March - November"],
+    climate: "Tropical in the south and subtropical in the north",
+    languages: ["Vietnamese", "English (in tourist hubs)"],
+    currency: "Vietnamese Dong (VND)",
+    timeZone: "UTC+7",
+    trending : false,
+    searches : 100
+    // topAttractions: ["Ha Long Bay", "Hoi An", "Hanoi", "Da Nang", "Ho Chi Minh City"],
+    // idealFor: ["Adventure seekers", "Food lovers", "Culture enthusiasts", "Nature travelers"]
   },
   {
     id: "d4",
-    name: "Santorini",
-    country: "Greece",
-    image: "https://images.pexels.com/photos/1010657/pexels-photo-1010657.jpeg",
-    description: "Explore the stunning white-washed buildings and crystal-clear waters of this iconic Greek island.",
-    popularMonths: ["May", "June", "July", "August", "September"],
-    climate: "Mediterranean",
-    languages: ["Greek", "English"],
-    currency: "Euro (EUR)",
-    timeZone: "UTC+2"
-  },
-  {
-    id: "d5",
-    name: "Machu Picchu",
-    country: "Peru",
-    image: "https://images.pexels.com/photos/2929906/pexels-photo-2929906.jpeg",
-    description: "Discover the ancient Incan citadel set high in the Andes Mountains.",
-    popularMonths: ["May", "June", "July", "August"],
-    climate: "Highland",
-    languages: ["Spanish", "Quechua"],
-    currency: "Peruvian Sol (PEN)",
-    timeZone: "UTC-5"
-  },
-  {
-    id: "d6",
-    name: "Maldives",
-    country: "Maldives",
-    image: "https://images.pexels.com/photos/1483053/pexels-photo-1483053.jpeg",
-    description: "Experience luxury and tranquility in overwater villas surrounded by turquoise lagoons.",
-    popularMonths: ["December", "January", "February", "March"],
-    climate: "Tropical",
-    languages: ["Dhivehi", "English"],
-    currency: "Maldivian Rufiyaa (MVR)",
-    timeZone: "UTC+5"
+    name: "Leh - Ladakh",
+    country: "India",
+    image: "https://www.easeindiatrip.com/blog/wp-content/uploads/2024/12/ladakh-pangong-tso-03.jpg",
+    description: "Ladakh, often called the 'Land of High Passes,' is a remote and stunning region in the Himalayas. Famous for its stark landscapes, crystal-clear lakes like Pangong Tso, and ancient monasteries, it's a dream for bikers, trekkers, and spiritual seekers.",
+    popularMonths: ["June - September"],
+    climate: "Cold desert climate with dry summers and freezing winters",
+    languages: ["Ladakhi", "Hindi", "English"],
+    currency: "Indian Rupee (INR)",
+    timeZone: "UTC+5:30",
+    trending : false,
+    searches : 100
+    // topAttractions: ["Pangong Lake", "Nubra Valley", "Leh Palace", "Magnetic Hill", "Khardung La Pass"],
+    // idealFor: ["Adventure bikers", "Trekking groups", "Nature lovers", "Spiritual travelers"]
   }
+  
+  
+  
+  
 ];
 
 export const getDestinationById = (id: string): Destination | undefined => {

@@ -1,37 +1,7 @@
 import React from 'react';
+import { tourOperators } from '../data/tour-operators'; 
 
-const partners = [
-  {
-    name: "SkyWings Travel",
-    logo: "https://images.pexels.com/photos/5473957/pexels-photo-5473957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Leading provider of luxury travel experiences worldwide."
-  },
-  {
-    name: "Adventure Quest",
-    logo: "https://images.pexels.com/photos/5473950/pexels-photo-5473950.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Specialists in adventure and outdoor holiday packages."
-  },
-  {
-    name: "Paradise Holidays",
-    logo: "https://images.pexels.com/photos/5473944/pexels-photo-5473944.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Expert in beach and island vacation packages."
-  },
-  {
-    name: "Cultural Voyages",
-    logo: "https://images.pexels.com/photos/5473947/pexels-photo-5473947.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Focused on cultural and heritage tourism experiences."
-  },
-  {
-    name: "Alpine Escapes",
-    logo: "https://images.pexels.com/photos/5473952/pexels-photo-5473952.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Specialized in mountain and ski holiday packages."
-  },
-  {
-    name: "Family Ventures",
-    logo: "https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    description: "Dedicated to creating memorable family vacation experiences."
-  }
-];
+const partners = tourOperators;
 
 const PartnersPage: React.FC = () => {
   return (

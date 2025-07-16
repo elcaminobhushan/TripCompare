@@ -53,14 +53,14 @@ const PackageFilters: React.FC<PackageFiltersProps> = ({
           {expandedFilters.includes('price') && (
             <div className="space-y-4">
               <div className="flex justify-between text-sm text-gray-600">
-                <span>${filters.priceRange[0]}</span>
-                <span>${filters.priceRange[1]}</span>
+                <span>₹{filters.priceRange[0]}</span>
+                <span>₹{filters.priceRange[1]}</span>
               </div>
               <input
                 type="range"
                 min="0"
-                max="5000"
-                step="100"
+                max="500000"
+                step="1000"
                 value={filters.priceRange[1]}
                 onChange={(e) => onFilterChange('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
                 className="w-full"

@@ -65,6 +65,15 @@ export const packageImages: PackageImage[] = [
     title: "Ski Slopes",
     description: "Professional ski instruction available",
     featured: false
+  },
+  {
+    id: "img7",
+    packageId: "p2",
+    url: "https://api.trekpanda.in/uploads/Phi%20Phi%20Islands%20thailand%20Trekpanda.jpg",
+    type: "activity",
+    title: "Ski Slopes",
+    description: "Professional ski instruction available",
+    featured: false
   }
 ];
 

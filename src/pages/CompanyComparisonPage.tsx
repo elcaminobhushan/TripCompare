@@ -124,7 +124,7 @@ const CompanyComparisonPage: React.FC = () => {
     
     // Get all unique activities
     const allActivities = allItineraries.reduce((acc, day) => {
-      const dayActivities = day.activities.map(id => getActivityById(id)).filter(Boolean);
+      const dayActivities = day.activities ? day.activities.map(id => getActivityById(id)).filter(Boolean) : [];
       return [...acc, ...dayActivities];
     }, [] as any[]);
     const uniqueActivities = allActivities.filter((activity, index, self) => 
@@ -133,7 +133,7 @@ const CompanyComparisonPage: React.FC = () => {
     
     // Get all unique meals
     const allMeals = allItineraries.reduce((acc, day) => {
-      const dayMeals = day.meals.map(id => getMealById(id)).filter(Boolean);
+      const dayMeals = day.meals ? day.meals.map(id => getMealById(id)).filter(Boolean) : [];
       return [...acc, ...dayMeals];
     }, [] as any[]);
     const uniqueMeals = allMeals.filter((meal, index, self) => 

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, PlaneLanding } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { useFavoritesStore } from '../../store/useStore';
+import logo from '../images/logo_only.png'; // adjust path if needed
+
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +35,11 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <PlaneLanding className="text-primary-600 h-8 w-8" />
+          <img
+    src={logo} // path to your logo image
+    alt="TripCompare Logo"
+    className="h-8 w-8 object-contain"
+  />
             <span className="font-bold text-2xl text-primary-600">TripCompare</span>
           </Link>
 

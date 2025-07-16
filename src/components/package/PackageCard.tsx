@@ -48,12 +48,22 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className = '' }
     toggleFavorite(packageData.id);
   };
 
-  const handleDownloadClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // PDF generation temporarily disabled
-    alert('PDF download feature will be available soon!');
+  const handleDownloadClick = () => {
+    if (!packageData.itinerary) {
+      alert("No itinerary file specified.");
+      return;
+    }
+  
+    const fileUrl = `/itenaries/${packageData.itinerary}`;
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = packageData.itinerary;
+    link.target = "_blank"; // Optional: open in new tab
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
+  
 
   const handleCardClick = () => {
     navigate(`/package/${packageData.id}`);
@@ -129,7 +139,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className = '' }
             </div>
             <div className="flex items-center text-gray-500">
               <Clock className="h-4 w-4 mr-1" />
-              <span>{packageData.duration} {packageData.duration === 1 ? 'day' : 'days'}</span>
+              <span>{packageData.duration_days} {packageData.duration_days === 1 ? 'day' : 'days'}</span>
             </div>
           </div>
           
