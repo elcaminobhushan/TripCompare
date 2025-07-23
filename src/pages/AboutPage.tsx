@@ -12,11 +12,6 @@ const AboutPage: React.FC = () => {
       name: "Kashish Verma",
       role: "Co-Founder",
       image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    },
-    {
-      name: "Gaurav Dadich",
-      role: "Travel Expert",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     }
   ];
 
@@ -36,12 +31,13 @@ const AboutPage: React.FC = () => {
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Story</h2>
           <div className="max-w-3xl mx-auto">
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Founded in 2023, TripCompare emerged from a simple idea: make travel planning easier and more transparent. We noticed how challenging it was for travelers to compare different holiday packages and make informed decisions about their vacations.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              Today, we're proud to be one of the leading holiday package comparison platforms, helping thousands of travelers find their perfect vacation at the best possible price. Our commitment to transparency, user experience, and comprehensive comparison tools sets us apart in the travel industry.
-            </p>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            Founded in 2025, TripCompare was born out of a simple insight — travelers often struggle to compare tour packages clearly and confidently. With so many operators, prices, and inclusions, making the right choice can be overwhelming.
+          </p>
+          <p className="text-gray-600 leading-relaxed">
+            We're building TripCompare to change that. Our goal is to simplify travel planning by helping users compare group tour packages side by side — across price, activities, stays, meals, and more — so they can find the best fit without the guesswork.
+          </p>
+
           </div>
         </div>
       </section>
@@ -71,24 +67,29 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Our Team */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-12">Meet the Team</h2>
+          <div className="flex flex-wrap justify-center gap-10">
             {team.map((member, index) => (
-              <div key={index} className="text-center">
-                <img 
-                  src={member.image} 
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-md p-6 w-72 hover:shadow-lg transition-shadow duration-300"
+              >
+                <img
+                  src={member.image}
                   alt={member.name}
-                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+                  className="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-primary-100"
                 />
-                <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                <p className="text-gray-600">{member.role}</p>
+                <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
+                <p className="text-sm text-primary-600 font-medium">{member.role}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+
 
       {/* Photo Gallery */}
       <section className="py-16 bg-gray-50">

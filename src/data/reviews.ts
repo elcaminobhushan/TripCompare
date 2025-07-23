@@ -15,7 +15,6 @@ export const reviews: PackageReview[] = [
     date: "2024-05-12",
     likes: 42,
     imageIds: ["img1"],
-    tagIds: ["tag-party", "tag-islands"],
     verified: true,
     response: {
       from: "TripCompare Team",
@@ -27,12 +26,11 @@ export const reviews: PackageReview[] = [
     id: "rev102",
     packageId: "p1",
     userId: "u102",
-    rating: 4,
+    rating: 3.7,
     title: "Fun group tour with smooth planning",
     content: "It was my first time doing a group tour. The trip captain was awesome and took care of everything. Just wish we had more time at Koh Samui.",
     date: "2024-05-08",
     likes: 19,
-    tagIds: ["tag-group", "tag-thailand"],
     verified: true
   },
   {
@@ -45,20 +43,18 @@ export const reviews: PackageReview[] = [
     date: "2024-05-02",
     likes: 33,
     imageIds: ["img2"],
-    tagIds: ["tag-beach", "tag-solo"],
     verified: true
   },
   {
     id: "rev104",
     packageId: "p2",
     userId: "u103",
-    rating: 5,
+    rating: 4,
     title: "The most incredible trip",
     content: "This was my first international trip with my friends away from my family and it was one of the best experience. All the sightseeing places and especially the historic places were absolutely superb. Kudos to TrekPanda for arranging the trip in a great way. There was a season going on in vietnam and it was a bit crowded but due to the management of our experience and reliable trip leader all things were covered in proper time and we didn't miss any sightseeing place. Thank you so much trekpanda for giving me my most memorable trip. I will definitely plan our next all trips with your company and will bring my family along too.",
     date: "2024-05-02",
     likes: 3,
     imageIds: ["img7"],
-    tagIds: ["tag-beach", "tag-solo"],
     verified: true
   },
 

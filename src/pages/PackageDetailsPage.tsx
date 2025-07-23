@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { getPackageById, getRelatedPackages } from '../data/packages';
-import { Package } from '../types';
-import PackageDetails from '../components/package/PackageDetails';
-import RelatedPackages from '../components/package/RelatedPackages';
+import { usePackage, useRelatedPackages } from '@/hooks/usePackages';
+import { Package } from '@/types';
+import PackageDetails from '@/components/package/PackageDetails';
+import RelatedPackages from '@/components/package/RelatedPackages';
 
 const PackageDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { data: foundPackage, isLoading: isPackageLoading } = usePackage(id ?? '');
+  const { data: foundRelatedPackages, isLoading: isRelatedLoading } = useRelatedPackages(id ?? '', 3);
+
   const [packageData, setPackageData] = useState<Package | null>(null);
   const [relatedPackages, setRelatedPackages] = useState<Package[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (id) {
-      // Simulate loading data
-      setIsLoading(true);
-      
-      setTimeout(() => {
-        const foundPackage = getPackageById(id);
-        setPackageData(foundPackage || null);
-        
-        if (foundPackage) {
-          setRelatedPackages(getRelatedPackages(id, 3));
-        }
-        
-        setIsLoading(false);
-      }, 300);
-    }
-  }, [id]);
+    if (foundPackage) setPackageData(foundPackage);
+  }, [foundPackage]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (foundRelatedPackages) setRelatedPackages(foundRelatedPackages);
+  }, [foundRelatedPackages]);
+
+  if (isPackageLoading || isRelatedLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

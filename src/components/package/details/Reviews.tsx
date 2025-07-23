@@ -1,5 +1,5 @@
 import React from 'react';
-import { PackageReview } from '../../../data/reviews';
+import type { PackageReview } from '../../../data/reviews';
 import { Star, ThumbsUp, Check, Image as ImageIcon } from 'lucide-react';
 
 interface ReviewsProps {
@@ -35,9 +35,9 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
             </div>
             <p className="text-gray-600 mt-1">Based on {reviews.length} reviews</p>
           </div>
-          <div className="flex items-center justify-end">
+          {/* <div className="flex items-center justify-end">
             <button className="btn btn-primary">Write a Review</button>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -89,20 +89,6 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
-
-            {/* Tags */}
-            {review.tagIds && review.tagIds.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {review.tagIds.map((tagId) => (
-                  <span
-                    key={tagId}
-                    className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-                  >
-                    {tagId}
-                  </span>
-                ))}
               </div>
             )}
 

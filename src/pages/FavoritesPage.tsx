@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import { Package } from '../types';
-import { getPackageById } from '../data/packages';
+import { usePackages } from '@/hooks/usePackages';
 import { useFavoritesStore } from '../store/useStore';
 import PackageCard from '../components/package/PackageCard';
 import { Link } from 'react-router-dom';
 
 const FavoritesPage: React.FC = () => {
   const { favorites } = useFavoritesStore();
+  const { data: foundPackage, isLoading: isPackageLoading } = usePackages();
   const [favoritePackages, setFavoritePackages] = useState<Package[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    setIsLoading(true);
     
     // Fetch all packages in favorites
     const packages = favorites
-      .map(id => getPackageById(id))
-      .filter((pkg): pkg is Package => pkg !== undefined);
+    .map(id => foundPackage.find(pkg => pkg.id === id))
+    .filter((pkg): pkg is Package => pkg !== undefined);
+  
       
     setFavoritePackages(packages);
-    setIsLoading(false);
   }, [favorites]);
 
-  if (isLoading) {
+  if (isPackageLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your favorites...</p>
+          <p className="text-gray-600">Loading package details...</p>
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">

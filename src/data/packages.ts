@@ -4,20 +4,16 @@ export const packages: Package[] = [
   // Bali Packages
   {
     id: "p1",
-    title: "Thailand Full Moon Party (with Flights)",
-    destinationId: "d1", 
-    image: "https://www.captureatrip.com/_next/image?url=https%3A%2F%2Fd1zvcmhypeawxj.cloudfront.net%2Flocation%2FThailand%2Fblogs%2Fthailand-backpacking-trip-0d0f527b82-dzhgzk-webp-d2fd85b1ba-1752060661759.webp&w=3840&q=50",
+    title: "7N/8D Thailand Full Moon Party (with Flights)",
     price: 74999,
-    currency: "INR",
     duration_days: 8,
     duration_nights: 7,
-    rating: 5,
-    reviews: 7286,
+    destinationId: "d1",
+    tourOperatorId: "to1", 
+    mainImage : "https://www.captureatrip.com/_next/image?url=https%3A%2F%2Fd1zvcmhypeawxj.cloudfront.net%2Flocation%2FThailand%2Fblogs%2Fthailand-backpacking-trip-0d0f527b82-dzhgzk-webp-d2fd85b1ba-1752060661759.webp&w=3840&q=50",
+    images: ["https://www.captureatrip.com/_next/image?url=https%3A%2F%2Fd1zvcmhypeawxj.cloudfront.net%2Flocation%2FThailand%2Fblogs%2Fthailand-backpacking-trip-0d0f527b82-dzhgzk-webp-d2fd85b1ba-1752060661759.webp&w=3840&q=50"],
+    currency: "INR",
     description: "Picture yourself dancing to the pulsating beats of a DJ along with thousands of other travelers on a beach under the full moon with a cocktail in hand. The Full Moon Party in Thailand is your destination where thousands of travelers from across the world gather every month on a full moon day and enjoy the vibrant celebration of an unforgettable night where music, dance and enjoyment seem to collide perfectly.",
-    itineraryId: "itin1",
-    accommodationId: "acc1",
-    tourOperatorId: "to1",
-    transportIds: ["trans1", "trans3"],
     inclusions: [
       "Return international flight up to INR 25,000",
       "Airport pick-up and drop at the destination city",
@@ -44,24 +40,22 @@ export const packages: Package[] = [
     featured: true,
     departureLocations: ["Delhi"],
     tags: ["Full Moon Party", "Flights Included", "Group Tour"],
-    itinerary : "CaptureATrip_Thailand_7N8D.pdf"
+    itineraryPdf : "CaptureATrip_Thailand_7N8D.pdf",
+    meal : ["Breakfast","Lunch","Dinner"]
   },
   {
     "id": "p2",
-    "title": "10 Days of Fantastic Thailand",
+    "title": "9N/10 Days of Fantastic Thailand",
     "destinationId": "d1",
-    "image": "https://api.trekpanda.in/uploads/maya%20bay%20trekpanda.jpg",
+    
+    mainImage : "https://api.trekpanda.in/uploads/maya%20bay%20trekpanda.jpg",
+    "images": ["https://api.trekpanda.in/uploads/maya%20bay%20trekpanda.jpg"],
     "price": 50000,
     "currency": "INR",
     "duration_days": 10,
     "duration_nights": 9,
-    "rating": 4.7,
-    "reviews": 39,
+    tourOperatorId: "to1", 
     "description": "Experience Thailand like never before! From Krabi's tranquil islands and Phuket's cabaret glam to Pattaya's Coral Island and Bangkok's vibrant culture, this 10-day journey offers the perfect mix of beaches, nightlife, and iconic landmarks — ideal for your first international adventure!",
-    "itineraryId": "itin2",
-    "accommodationId": "acc2",
-    "tourOperatorId": "to2",
-    "transportIds": ["trans_air_internal", "trans_sic"],
     "inclusions": [
       "Accommodation in 3-star properties: 2N Krabi, 3N Phuket, 2N Pattaya, 2N Bangkok with breakfast",
       "All intercity and airport transfers: Airport → Krabi → Phuket → Pattaya → Bangkok → Airport",
@@ -85,24 +79,21 @@ export const packages: Package[] = [
     "featured": true,
     "departureLocations": ["Delhi"],
     "tags": ["Group Tour", "Thailand Highlights", "Beaches", "Cabaret", "Culture"],
-    "itinerary": "TrekPanda_Thailand_10D_Itinerary.pdf"
+    "itineraryPdf": "TrekPanda_Thailand_10D_Itinerary.pdf",
+    meal : ["Breakfast","Lunch","Dinner"]
   },
   {
     "id": "p3",
     "title": "Thailand Solo & Party Group Tour",
     "destinationId": "d1",
-    "image": "https://d2qa7a8q0vuocm.cloudfront.net/images/12073820231104222013.png",
+    mainImage : "https://d2qa7a8q0vuocm.cloudfront.net/images/12073820231104222013.png",
+    "images": ["https://d2qa7a8q0vuocm.cloudfront.net/images/12073820231104222013.png"],
     "price": 51999,
     "currency": "INR",
     "duration_days": 8,
     "duration_nights": 7,
-    "rating": 4.9,
-    "reviews": 87,
     "description": "Unleash your party spirit and solo adventure vibes on this epic 8-day Thailand group tour! Explore Phuket, Koh Samui, Koh Phangan and Krabi — with yacht parties, fire shows, full moon madness, and a squad of like-minded travelers.",
-    "itineraryId": "itin3",
-    "accommodationId": "acc3",
     "tourOperatorId": "to3",
-    "transportIds": ["trans_ferry", "trans_private"],
     "inclusions": [
       "7 Nights accommodation in 4-star hotels located in city-centre",
       "Airport pickup & drop",
@@ -135,24 +126,21 @@ export const packages: Package[] = [
       "Indian Travelers",
       "Digital Nomads"
     ],
-    "itinerary": "Thailand_Solo_Party_8D_Itinerary.pdf"
+    "itineraryPdf": "Thailand_Solo_Party_8D_Itinerary.pdf",
+    meal : ["Breakfast","Lunch","Dinner"]
   },
   {
     "id": "p4",
     "title": "Bangkok–Krabi–Phuket Tour (8D/7N)",
     "destinationId": "d1",
-    "image": "https://d2qa7a8q0vuocm.cloudfront.net/images/15489120231104222013.png",
+    mainImage : "https://d2qa7a8q0vuocm.cloudfront.net/images/15489120231104222013.png",
+    "images": ["https://d2qa7a8q0vuocm.cloudfront.net/images/15489120231104222013.png"],
     "price": 80000,
     "currency": "INR",
     "duration_days": 8,
     "duration_nights": 7,
-    "rating": 4.8,
-    "reviews": 62,
     "description": "Explore the best of Thailand in 8 days across Bangkok, Krabi, and Phuket. From cultural city tours and jungle safaris to island-hopping and thrilling shows, this all-in-one tour blends relaxation and adventure in style.",
-    "itineraryId": "itin4",
-    "accommodationId": "acc4",
     "tourOperatorId": "to4",
-    "transportIds": ["trans_flight", "trans_private", "trans_sic"],
     "inclusions": [
       "Accommodation in 3/4 star Hotels for 7 Nights",
       "Daily buffet Breakfast & 2 Complimentary Dinners",
@@ -186,7 +174,8 @@ export const packages: Package[] = [
       "City + Beach",
       "Family Friendly"
     ],
-    "itinerary": "Thailand_Bangkok_Krabi_Phuket_8D_Itinerary.pdf"
+    "itineraryPdf": "Thailand_Bangkok_Krabi_Phuket_8D_Itinerary.pdf",
+    "meal" : ["Breakfast","Lunch","Dinner"]
   }
   
   

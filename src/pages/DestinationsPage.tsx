@@ -1,31 +1,37 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { destinations } from '../data/destinations';
 import { Sun, Cloud, Plane, DollarSign } from 'lucide-react';
-import { packages } from '../data/packages';
+import { useDestinations } from '@/hooks/useDestinations';
+import { usePackages } from '../hooks/usePackages';
+import { Package } from '../types';
 
 const DestinationsPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const getDestinationStats = (destinationId: string) => {
-    const destinationPackages = packages.filter(pkg => pkg.destinationId === destinationId);
-
-    const prices = destinationPackages.map(pkg => pkg.price);
+  const getDestinationStats = (destinationId: string, packages: Package[]) => {
+    const filtered = packages.filter(pkg => pkg.destinationId === destinationId);
+    const prices = filtered.map(pkg => pkg.price);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
-    const companies = new Set(destinationPackages.map(pkg => pkg.tourOperatorId));
-
+    const companies = new Set(filtered.map(pkg => pkg.tourOperatorId));
+  
     return {
       minPrice,
       maxPrice,
       companiesCount: companies.size,
-      packagesCount: destinationPackages.length
+      packagesCount: filtered.length
     };
   };
+  
 
   const handleViewPackages = (destinationId: string) => {
     navigate(`/packages?destination=${encodeURIComponent(destinationId)}`);
   };
+  
+  const { data: packages} = usePackages();
+  const { data: destinations, isLoading, error } = useDestinations();
+  if (isLoading) return <p>Loading destinations...</p>;
+  if (error) return <p>Error loading destinations</p>;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -34,7 +40,7 @@ const DestinationsPage: React.FC = () => {
 
         <div className="space-y-8">
           {destinations.map((destination) => {
-            const stats = getDestinationStats(destination.id);
+            const stats = getDestinationStats(destination.id,packages);
             
             return (
               <div key={destination.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -68,7 +74,7 @@ const DestinationsPage: React.FC = () => {
                           <h3 className="font-medium">Tour Operators</h3>
                         </div>
                         <p className="text-gray-600 text-sm">
-                          {stats.companiesCount} companies
+                          {stats && stats.companiesCount} companies
                         </p>
                       </div>
                       

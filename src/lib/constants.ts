@@ -74,21 +74,21 @@ export const contactPurposes = [
 export const socialLinks = {
   facebook: 'https://facebook.com/tripcompare',
   twitter: 'https://twitter.com/tripcompare',
-  instagram: 'https://instagram.com/tripcompare',
+  instagram: 'https://www.instagram.com/tripscompare',
   linkedin: 'https://linkedin.com/company/tripcompare',
 } as const;
 
 // Support contact info
 export const supportContact = {
-  email: 'support@tripcompare.com',
-  phone: '+1 (800) 123-4567',
+  email: 'admin@tripcompare.com',
+  phone: '+91 77188 80196',
   hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST',
   address: {
-    street: '123 Travel Street',
-    suite: 'Suite 456',
-    city: 'New York',
-    state: 'NY',
-    zip: '10001',
-    country: 'United States',
+    street: 'Trimbak Road',
+    suite: 'Patel Colony',
+    city: 'Nashik',
+    state: 'Maharahstra',
+    zip: '422002',
+    country: 'India',
   },
 } as const;

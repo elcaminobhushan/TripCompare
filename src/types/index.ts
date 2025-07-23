@@ -2,26 +2,24 @@ export interface Package {
   id: string;
   title: string;
   destinationId: string;
-  image: string;
+  mainImage: string;
+  images: string [];
   price: number;
   currency: string;
   duration_days: number;
   duration_nights: number;
-  rating: number;
-  reviews: number;// References to amenity IDs
   description: string;
-  itineraryId: string;
-  accommodationId: string;
-  transportIds: string[];
   inclusions: string[];
   exclusions: string[];
   featured?: boolean;
   discount?: number;
   departureLocations: string[]; // References to location IDs
   tourOperatorId: string;
+  itineraryPdf : string;
+  meal: string[];
   tags: string[];
-  itinerary : string;
 }
+
 
 export interface Destination {
   id: string;
@@ -34,6 +32,8 @@ export interface Destination {
   languages: string[];
   currency: string;
   timeZone: string;
+  trending: boolean;
+  searches: number;
 }
 
 export interface TourOperator {
@@ -62,13 +62,12 @@ export interface Accommodation {
 
 export interface Transport {
   id: string;
+  itenaryId: string;
   type: string;
   name: string;
-  provider: string;
-  details: string;
-  included: boolean;
-  features: string[];
-  image: string;
+  source: string;
+  destination: string;
+  description: string;
 }
 
 export interface Activity {
@@ -95,7 +94,6 @@ export interface Review {
   date: string;
   likes: number;
   imageIds?: string[];
-  tagIds: string[];
   verified: boolean;
   response?: {
     from: string;
@@ -175,9 +173,5 @@ export interface ItineraryDay {
   day: number;
   title: string;
   description: string;
-  activityIds: string[];
-  mealIds: string[];
-  accommodationId: string;
-  transportIds?: string[];
   notes?: string;
 }

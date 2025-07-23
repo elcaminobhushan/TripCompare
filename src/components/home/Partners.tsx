@@ -1,25 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-const partners = [
-  {
-    name: "SkyWings Travel",
-    logo: "https://images.pexels.com/photos/5473957/pexels-photo-5473957.jpeg",
-    description: "Leading provider of luxury travel experiences worldwide."
-  },
-  {
-    name: "Adventure Quest",
-    logo: "https://images.pexels.com/photos/5473950/pexels-photo-5473950.jpeg",
-    description: "Specialists in adventure and outdoor holiday packages."
-  },
-  {
-    name: "Paradise Holidays",
-    logo: "https://images.pexels.com/photos/5473944/pexels-photo-5473944.jpeg",
-    description: "Expert in beach and island vacation packages."
-  }
-];
+import {useTourOperators} from '../../hooks/useTourOperators';
 
 const Partners: React.FC = () => {
+  const { data: partners,isLoading} = useTourOperators();
+if (isLoading) return <p>Loading...</p>;
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 md:px-6">

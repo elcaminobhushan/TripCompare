@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter,Instagram,Linkedin, Send } from 'lucide-react';
+
+import { socialLinks } from '@/lib/constants';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -131,7 +133,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg mb-1">Phone</h3>
-                      <p className="text-gray-600">+1 (800) 123-4567</p>
+                      <p className="text-gray-600">+91 77188 880196</p>
                       <p className="text-sm text-gray-500">Mon-Fri: 9:00 AM - 6:00 PM EST</p>
                     </div>
                   </div>
@@ -142,8 +144,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg mb-1">Email</h3>
-                      <p className="text-gray-600">support@tripcompare.com</p>
-                      <p className="text-gray-600">partnerships@tripcompare.com</p>
+                      <p className="text-gray-600">admin@tripcompare.com</p>
                     </div>
                   </div>
                   
@@ -154,10 +155,10 @@ const ContactPage: React.FC = () => {
                     <div>
                       <h3 className="font-medium text-lg mb-1">Office Address</h3>
                       <p className="text-gray-600">
-                        123 Travel Street<br />
-                        Suite 456<br />
-                        New York, NY 10001<br />
-                        United States
+                        Plot No - 05, Patel Colony<br />
+                        Trimbak Road<br />
+                        Nashik, Maharashtra 422002<br />
+                        India
                       </p>
                     </div>
                   </div>
@@ -186,7 +187,7 @@ const ContactPage: React.FC = () => {
                     <span className="text-sm text-gray-600">Twitter</span>
                   </a>
                   <a 
-                    href="#" 
+                    href = {socialLinks.instagram}
                     className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <div className="bg-pink-50 p-3 rounded-full">

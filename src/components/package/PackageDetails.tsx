@@ -10,9 +10,9 @@ import Reviews from './details/Reviews';
 import Policies from './details/Policies';
 import { Package } from '../../types';
 import { useFavoritesStore } from '../../store/useStore';
-import { destinations } from '../../data/destinations';
-import { getPackageReviews } from '../../data/reviews';
-import { tourOperators } from '../../data/tour-operators';
+import { useDestinations } from '@/hooks/useDestinations';
+import { useTourOperators } from '@/hooks/useTourOperators';
+import { getPackageRating, getPackageReviews } from '../../data/reviews';
 
 interface PackageDetailsProps {
   packageData: Package;
@@ -26,25 +26,31 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
 
   const finalPrice = calculateFinalPrice(packageData);
   const savedAmount = packageData.price - finalPrice;
+  const { data: tourOperators} = useTourOperators();
+  const { data: destinations, isLoading, error } = useDestinations();
   const destination = destinations.find(d => d.id === packageData.destinationId);
   const reviews = getPackageReviews(packageData.id);
+  const ratings = getPackageRating(packageData.id);
   const tourOperator = tourOperators.find(to => to.id === packageData.tourOperatorId);
+  
+  if (isLoading) return <p>Loading destinations...</p>;
+  if (error) return <p>Error loading destinations</p>;
 
   const handleFavoriteClick = () => {
     toggleFavorite(packageData.id);
   };
 
   const handleDownloadClick = () => {
-    if (!packageData.itinerary) {
+    if (!packageData.itineraryPdf) {
       alert("No itinerary file specified.");
       return;
     }
   
     
-    const fileUrl = `/itenaries/${packageData.itinerary}`;
+    const fileUrl = `/itenaries/${packageData.itineraryPdf}`;
     const link = document.createElement("a");
     link.href = fileUrl;
-    link.download = packageData.itinerary;
+    link.download = packageData.itineraryPdf;
     link.target = "_blank"; // Optional: open in new tab
     document.body.appendChild(link);
     link.click();
@@ -69,7 +75,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 text-amber-400 fill-amber-400" />
-                    <span className="font-medium">{packageData.rating}</span>
+                    <span className="font-medium">{ratings.rating}</span>
                     <span className="text-gray-500">({reviews.length} reviews)</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -82,7 +88,7 @@ const PackageDetails: React.FC<PackageDetailsProps> = ({ packageData }) => {
                 {/* Main Image */}
                 <div className="aspect-video rounded-xl overflow-hidden">
                   <img 
-                    src={packageData.image} 
+                    src={packageData.mainImage} 
                     alt={packageData.title}
                     className="w-full h-full object-cover"
                   />

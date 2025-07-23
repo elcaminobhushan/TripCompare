@@ -9,7 +9,7 @@ export interface Destination {
   languages: string[];
   currency: string;
   timeZone: string;
-  trending : Boolean;
+  trending : boolean;
   searches : number;
 }
 

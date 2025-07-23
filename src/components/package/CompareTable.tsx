@@ -3,11 +3,13 @@ import { Package } from '../../types';
 import { X, Star, Check } from 'lucide-react';
 import { useCompare } from '../../hooks/useCompare';
 import { formatPrice, calculateFinalPrice } from '../../utils/formatters';
-import { destinations } from '../../data/destinations';
-import { getPackageItinerary } from '../../data/itineraries';
-import { getMealById } from '../../data/meals';
-import { getAccommodationById } from '../../data/accommodations';
-import { getTransportById } from '../../data/transport';
+import { useDestinations } from '@/hooks/useDestinations';
+import { useTransportByItineraryId } from '../../hooks/useTransport';
+import { useAccommodationsByItineraryId } from '../../hooks/useAccommodations';
+import { usePackageRating } from '../../hooks/useReviews';
+import { usePackageItinerary } from '../../hooks/useItineraries';
+
+import { Plane, Bus, Train, Ship, Car } from "lucide-react"; 
 
 interface CompareTableProps {
   packages: Package[];
@@ -15,6 +17,9 @@ interface CompareTableProps {
 
 const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
   const { removeFromCompare } = useCompare();
+  const { data: destinations, isLoading, error } = useDestinations();
+  if (isLoading) return <p>Loading destinations...</p>;
+  if (error) return <p>Error loading destinations</p>;
 
   if (packages.length === 0) {
     return (
@@ -102,104 +107,62 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
           <tr>
             <td className="px-6 py-4 font-medium">Rating</td>
             {packages.map((pkg) => (
-              <td key={pkg.id} className="px-6 py-4">
-                <div className="flex items-center">
-                  <div className="flex mr-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i}
-                        className={`h-4 w-4 ${
-                          i < Math.floor(pkg.rating) 
-                            ? 'text-amber-400 fill-amber-400' 
-                            : 'text-gray-300'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="ml-1">{pkg.rating}</span>
-                  <span className="ml-1 text-gray-500">({pkg.reviews})</span>
-                </div>
-              </td>
+              <PackageRatingCell key={pkg.id} packageId={pkg.id} />
             ))}
           </tr>
           
           {/* Accommodation */}
           <tr>
             <td className="px-6 py-4 font-medium">Accommodation</td>
-            {packages.map((pkg) => {
-              const accommodation = getAccommodationById(pkg.accommodationId);
-              return (
-                <td key={pkg.id} className="px-6 py-4">
-                  {accommodation && (
-                    <div>
-                      <div className="font-medium">{accommodation.name}</div>
-                      <div className="text-sm text-gray-500">{accommodation.type}</div>
-                    </div>
-                  )}
-                </td>
-              );
-            })}
+            {packages.map((pkg) => (
+              <PackageAccommodationCell key={pkg.id} packageId={pkg.id} />
+            ))}
           </tr>
+
           
           {/* Meals */}
           <tr>
-            <td className="px-6 py-4 font-medium">Meals Included</td>
-            {packages.map((pkg) => {
-              const itinerary = getPackageItinerary(pkg.id);
-              const meals = itinerary.reduce((acc, day) => {
-                (day.meals ?? []).forEach(mealId => {
-                  const meal = getMealById(mealId);
-                  if (meal) {
-                    if (meal.type === 'breakfast') acc.breakfast++;
-                    if (meal.type === 'lunch') acc.lunch++;
-                    if (meal.type === 'dinner') acc.dinner++;
-                  }
-                });
-                return acc;
-              }, { breakfast: 0, lunch: 0, dinner: 0 });
-              
-              
-              return (
-                <td key={pkg.id} className="px-6 py-4">
-                  <div className="space-y-1">
+          <td className="px-6 py-4 font-medium">Meals Included</td>
+          {packages.map((pkg) => {
+            const meals = pkg.meal ?? [];
+
+            return (
+              <td key={pkg.id} className="px-6 py-4">
+                <div className="space-y-1">
+                  {meals.includes("Breakfast") && (
                     <div className="flex items-center">
                       <span className="inline-block w-20 text-sm">Breakfast:</span>
-                      <span className="font-medium">{meals.breakfast} included</span>
+                      <span className="font-medium">included</span>
                     </div>
+                  )}
+                  {meals.includes("Lunch") && (
                     <div className="flex items-center">
                       <span className="inline-block w-20 text-sm">Lunch:</span>
-                      <span className="font-medium">{meals.lunch} included</span>
+                      <span className="font-medium">included</span>
                     </div>
+                  )}
+                  {meals.includes("Dinner") && (
                     <div className="flex items-center">
                       <span className="inline-block w-20 text-sm">Dinner:</span>
-                      <span className="font-medium">{meals.dinner} included</span>
+                      <span className="font-medium">included</span>
                     </div>
-                  </div>
-                </td>
-              );
-            })}
-          </tr>
+                  )}
+                </div>
+              </td>
+            );
+          })}
+        </tr>
+
           
           {/* Transport */}
+
           <tr>
             <td className="px-6 py-4 font-medium">Transportation</td>
-            {packages.map((pkg) => {
-              const transports = pkg.transportIds.map(id => getTransportById(id)).filter(Boolean);
-              return (
-                <td key={pkg.id} className="px-6 py-4">
-                  {transports.map((transport, index) => transport && (
-                    <div key={index} className="flex items-center">
-                      <Check className="h-5 w-5 text-green-600 mr-2" />
-                      <div>
-                        <span>{transport.name}</span>
-                        <p className="text-sm text-gray-500 mt-1">{transport.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </td>
-              );
-            })}
+            {packages.map((pkg) => (
+              <PackageTransportCell key={pkg.id} packageId={pkg.id} />
+            ))}
           </tr>
+
           
           
           {/* Actions */}
@@ -225,6 +188,86 @@ const CompareTable: React.FC<CompareTableProps> = ({ packages }) => {
       </table>
     </div>
   );
+};
+
+// Helper components for complex cells
+const PackageRatingCell: React.FC<{ packageId: string }> = ({ packageId }) => {
+  const { data: rating } = usePackageRating(packageId);
+  
+  return (
+    <td className="px-6 py-4">
+      <div className="flex items-center">
+        <div className="flex mr-1">
+          {[...Array(5)].map((_, i) => (
+            <Star 
+              key={i}
+              className={`h-4 w-4 ${
+                i < Math.floor(rating.rating) 
+                  ? 'text-amber-400 fill-amber-400' 
+                  : 'text-gray-300'
+              }`}
+            />
+          ))}
+        </div>
+        <span className="ml-1">{rating.rating}</span>
+        <span className="ml-1 text-gray-500">({rating.count})</span>
+      </div>
+    </td>
+  );
+};
+
+const PackageAccommodationCell: React.FC<{ packageId: string }> = ({ packageId }) => {
+  const { data: itinerary } = usePackageItinerary(packageId);
+  const firstItineraryId = itinerary?.[0]?.id || '';
+  const { data: accommodations } = useAccommodationsByItineraryId(firstItineraryId);
+  const acc = accommodations?.[0];
+  
+  return (
+    <td className="px-6 py-4">
+      {acc && (
+        <div>
+          <div className="font-medium">{acc.name}</div>
+        </div>
+      )}
+    </td>
+  );
+};
+
+const PackageTransportCell: React.FC<{ packageId: string }> = ({ packageId }) => {
+  const { data: itinerary } = usePackageItinerary(packageId);
+  const firstItineraryId = itinerary?.[0]?.id || '';
+  const { data: transports } = useTransportByItineraryId(firstItineraryId);
+  const types = transports ? [...new Set(transports.map(t => t.type))] : [];
+  
+  return (
+    <td className="px-6 py-4">
+      {types.map((type, index) => (
+        <div key={index} className="flex items-center mb-1">
+          {getTransportIcon(type)}
+          <span className="font-medium">{type}</span>
+        </div>
+      ))}
+    </td>
+  );
+};
+
+const getTransportIcon = (type: string) => {
+  switch (type.toLowerCase()) {
+    case "flight":
+    case "plane":
+      return <Plane className="h-4 w-4 mr-2 text-blue-600" />;
+    case "bus":
+      return <Bus className="h-4 w-4 mr-2 text-yellow-600" />;
+    case "train":
+      return <Train className="h-4 w-4 mr-2 text-red-600" />;
+    case "ship":
+    case "ferry":
+      return <Ship className="h-4 w-4 mr-2 text-purple-600" />;
+    case "car":
+      return <Car className="h-4 w-4 mr-2 text-green-600" />;
+    default:
+      return <Check className="h-4 w-4 mr-2 text-gray-600" />;
+  }
 };
 
 export default CompareTable;

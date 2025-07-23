@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, Globe, Navigation } from 'lucide-react';
-import { destinations } from '../../data/destinations';
+import { Search, Globe, Navigation } from 'lucide-react';
+import { useDestinations } from '@/hooks/useDestinations';
 
 interface SearchFormProps {
   onSearch: (searchParams: any) => void;
@@ -14,30 +14,15 @@ const SearchForm: React.FC<SearchFormProps> = ({
   isCompact = false 
 }) => {
   const [destination, setDestination] = useState('');
-  const [showAIRecommendations, setShowAIRecommendations] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Simulated AI recommendations
-  const aiRecommendations = [
-    { name: "Bali", reason: "Based on your interest in beach destinations" },
-    { name: "Swiss Alps", reason: "Matches your adventure travel preferences" },
-    { name: "Kyoto", reason: "Aligns with your cultural exploration history" }
-  ];
+  const { data: destinations, error } = useDestinations();
+if (error) return <p>Error loading destinations</p>;
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch({
       destination
     });
-  };
-
-  const handleAIRecommend = () => {
-    setIsLoading(true);
-    setShowAIRecommendations(true);
-    // Simulate AI processing
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   };
 
   return (
@@ -52,14 +37,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
               <Globe className="h-5 w-5 text-primary-600" />
               Find Your Dream Destination
             </label>
-            <button
-              type="button"
-              onClick={handleAIRecommend}
-              className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
-            >
-              <Sparkles className="h-4 w-4" />
-              AI Recommend
-            </button>
           </div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -90,39 +67,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
           </button>
         </div>
       </form>
-
-      {/* AI Recommendations */}
-      {showAIRecommendations && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-100 p-4 z-10">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-            </div>
-          ) : (
-            <>
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="h-5 w-5 text-primary-600" />
-                <h3 className="font-medium">AI Recommendations</h3>
-              </div>
-              <div className="space-y-2">
-                {aiRecommendations.map((rec, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setDestination(rec.name);
-                      setShowAIRecommendations(false);
-                    }}
-                    className="w-full text-left p-2 hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <div className="font-medium">{rec.name}</div>
-                    <div className="text-sm text-gray-600">{rec.reason}</div>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      )}
     </div>
   );
 };

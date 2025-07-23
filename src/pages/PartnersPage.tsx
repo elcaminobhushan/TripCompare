@@ -1,9 +1,12 @@
 import React from 'react';
-import { tourOperators } from '../data/tour-operators'; 
-
-const partners = tourOperators;
+import { useTourOperators } from '../hooks/useTourOperators';
 
 const PartnersPage: React.FC = () => {
+  const { data: partners, isLoading, error } = useTourOperators();
+  
+  if (isLoading) return <p>Loading partners...</p>;
+  if (error) return <p>Error loading partners</p>;
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4 md:px-6">
@@ -15,7 +18,7 @@ const PartnersPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {partners.map((partner, index) => (
+          {partners?.map((partner, index) => (
             <div key={index} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <div className="h-48 relative">
                 <img 
