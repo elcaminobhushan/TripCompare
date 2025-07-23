@@ -80,7 +80,7 @@ export const socialLinks = {
 
 // Support contact info
 export const supportContact = {
-  email: 'admin@tripcompare.com',
+  email: 'info@tripcompare.com',
   phone: '+91 77188 80196',
   hours: 'Mon-Fri: 9:00 AM - 6:00 PM EST',
   address: {

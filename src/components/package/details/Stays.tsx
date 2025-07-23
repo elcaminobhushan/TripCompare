@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Package } from '../../../types';
 import { ChevronDown, ChevronUp, Star } from 'lucide-react';
 import { usePackageItinerary } from '../../../hooks/useItineraries';
-import { useAccommodationsByItineraryId,useAccommodationsByItineraryIds } from '../../../hooks/useAccommodations';
+import { useAccommodationsByItineraryId, useAccommodationsByItineraryIds } from '../../../hooks/useAccommodations';
 
 interface StaysProps {
   packageData: Package;
@@ -14,14 +14,11 @@ const Stays: React.FC<StaysProps> = ({ packageData }) => {
 
   const handleDayToggle = (day: number) => {
     setExpandedDays(prev =>
-      prev.includes(day)
-        ? prev.filter(d => d !== day)
-        : [...prev, day]
+      prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
     );
   };
 
-  // Check if no accommodation data is present globally
-  const hasAnyAccommodations = useAccommodationsByItineraryIds(itinerary.map(a=>a.id));
+  const hasAnyAccommodations = useAccommodationsByItineraryIds(itinerary.map(a => a.id));
 
   if (!itinerary || itinerary.length === 0) {
     return <div className="text-gray-500">No itinerary found for this package.</div>;
@@ -45,8 +42,6 @@ const Stays: React.FC<StaysProps> = ({ packageData }) => {
     </div>
   );
 };
-
-// Inline component restored here
 const StaysDayCard: React.FC<{
   day: any;
   itineraryLength: number;
@@ -59,14 +54,13 @@ const StaysDayCard: React.FC<{
 
   const renderStarRating = (rating: number) => {
     if (!rating || rating <= 0) return null;
-
     return [...Array(Math.floor(rating))].map((_, i) => (
       <Star key={i} className="h-4 w-4 text-amber-400 fill-amber-400" />
     ));
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden">
+    <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50"
@@ -76,7 +70,7 @@ const StaysDayCard: React.FC<{
             {day.day}
           </div>
           <div className="text-left">
-            <h3 className="font-semibold">
+            <h3 className="font-semibold text-base">
               {accommodations[0].name}
             </h3>
             <p className="text-sm text-gray-500">
@@ -91,29 +85,28 @@ const StaysDayCard: React.FC<{
         )}
       </button>
 
-      {isExpanded &&
-        accommodations.map((acc) => (
-          <div
-            key={acc.id}
-            className="p-4 bg-gray-50 border-t border-gray-200"
-          >
-            <div className="flex flex-col md:flex-row gap-6">
-              <img
-                src={acc.image}
-                alt={acc.name}
-                className="w-full md:w-64 h-48 object-cover rounded-lg"
-              />
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h4 className="font-semibold">{acc.name}</h4>
-                  <div className="flex">
-                    {renderStarRating(acc.rating)}
-                  </div>
-                </div>
+      {isExpanded && accommodations.map((acc) => (
+        <div key={acc.id} className="p-4 bg-gray-50 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row gap-5 items-start">
+            <img
+              src={acc.image || '/default-hotel.jpg'}
+              alt={acc.name}
+              className="w-full md:w-64 h-44 object-cover rounded-lg shadow"
+            />
+            <div className="flex-1 space-y-1">
+              <div className="flex items-center gap-2">
+                <h4 className="font-semibold text-lg text-gray-800">{acc.name}</h4>
+                <div className="flex">{renderStarRating(acc.rating)}</div>
               </div>
+              {acc.description && (
+                <p className="text-sm text-gray-600 mt-1 whitespace-pre-line">
+                  {acc.description}
+                </p>
+              )}
             </div>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   );
 };

@@ -144,7 +144,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg mb-1">Email</h3>
-                      <p className="text-gray-600">admin@tripcompare.com</p>
+                      <p className="text-gray-600">info@tripcompare.com</p>
                     </div>
                   </div>
                   
@@ -210,8 +210,8 @@ const ContactPage: React.FC = () => {
               {/* Map Preview */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1647286028211!5m2!1sen!2sin"
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14998.40362018995!2d73.7505248498901!3d19.98327936856123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb63edc260b1%3A0xb50e549ced94a14c!2sPine%20Woods%20Appt!5e0!3m2!1sen!2sin!4v1753258111820!5m2!1sen!2sin" 
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
